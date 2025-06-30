@@ -1,0 +1,107 @@
+<!-- Filter Button -->
+<button (click)="openModal()" class="flex items-center gap-2 bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+  </svg>
+  Filters
+</button>
+
+<!-- Modal -->
+<div *ngIf="isModalOpen" class="fixed top-0 left-0 w-80 h-screen bg-white shadow-xl transform transition-transform duration-300 ease-in-out z-50" [ngClass]="{'-translate-x-full': !isModalOpen}">
+  <div class="h-full overflow-y-auto p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-xl font-semibold text-primary">Filters</h2>
+      <button (click)="closeModal()" class="text-gray-500 hover:text-gray-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Filter Sections -->
+    <div class="space-y-6">
+      <!-- By Price -->
+      <div>
+        <h3 class="text-lg font-medium text-gray-900">By Price</h3>
+        <div class="mt-2 space-y-2">
+          <label class="flex items-center" *ngFor="let price of priceRanges">
+            <input type="checkbox" [(ngModel)]="selectedFilters.prices[price]" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+            <span class="ml-2 text-gray-700">{{ price }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- By Color -->
+<div>
+        <h3 class="text-lg font-medium text-gray-900">By Color</h3>
+        <div class="mt-2 space-y-2">
+          <label class="flex items-center" *ngFor="let color of colors">
+            <input type="checkbox" [(ngModel)]="selectedFilters.colors[color]" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+            <span class="ml-2 w-5 h-5 rounded-full" [ngClass]="{
+              'bg-red-500': color === 'Red',
+              'bg-blue-500': color === 'Blue',
+              'bg-green-500': color === 'Green',
+              'bg-black': color === 'Black',
+              'bg-yellow-500': color === 'Brown',
+              'bg-white border border-gray-300': color === 'White'
+            }"></span>
+            <span class="ml-2 text-gray-700">{{ color }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- By Type -->
+      <div>
+        <h3 class="text-lg font-medium text-gray-900">By Type</h3>
+        <div class="mt-2 space-y-2">
+          <label class="flex items-center" *ngFor="let type of types">
+            <input type="checkbox" [(ngModel)]="selectedFilters.types[type]" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+            <span class="ml-2 text-gray-700">{{ type }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- By Pieces -->
+      <div>
+        <h3 class="text-lg font-medium text-gray-900">By Pieces</h3>
+        <div class="mt-2 space-y-2">
+          <label class="flex items-center" *ngFor="let piece of pieces">
+            <input type="checkbox" [(ngModel)]="selectedFilters.pieces[piece]" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+            <span class="ml-2 text-gray-700">{{ piece }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- By Fabric -->
+      <div>
+        <h3 class="text-lg font-medium text-gray-900">By Fabric</h3>
+        <div class="mt-2 grid grid-cols-2 gap-2">
+          <label class="flex items-center" *ngFor="let fabric of fabrics">
+            <input type="checkbox" [(ngModel)]="selectedFilters.fabrics[fabric]" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+            <span class="ml-2 text-gray-700">{{ fabric }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- By Size -->
+      <div>
+        <h3 class="text-lg font-medium text-gray-900">By Size</h3>
+        <div class="mt-2 grid grid-cols-2 gap-2">
+          <label class="flex items-center" *ngFor="let size of sizes">
+            <input type="checkbox" [(ngModel)]="selectedFilters.sizes[size]" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+            <span class="ml-2 text-gray-700">{{ size }}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="mt-6 flex gap-2">
+      <button (click)="clearFilters()" class="w-full bg-gray-300 text-gray-700 py-2 rounded-md hover:bg-gray-400">Clear Filters</button>
+      <button (click)="applyFilters()" class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700">Apply Filters</button>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay -->
+<div *ngIf="isModalOpen" (click)="closeModal()" class="fixed inset-0 bg-black/20 z-40"></div>

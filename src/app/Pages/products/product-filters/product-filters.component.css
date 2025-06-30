@@ -1,0 +1,4 @@
+/* Ensure Tailwind classes are applied correctly */
+:host {
+  display: block;
+}

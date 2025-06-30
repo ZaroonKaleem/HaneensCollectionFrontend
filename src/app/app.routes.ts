@@ -1,3 +1,18 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './Pages/home/home.component';
+import { ProductsComponent } from './Pages/products/products.component';
+import { PretComponent } from './Pages/pret/pret.component';
+import { UnstichedComponent } from './Pages/unstiched/unstiched.component';
+import { StitchedComponent } from './Pages/stitched/stitched.component';
+import { LuxuryComponent } from './Pages/luxury/luxury.component';
+import { SaleComponent } from './Pages/sale/sale.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  { path: '', component: HomeComponent, title: 'Home | HC' },
+  { path: 'women', component: ProductsComponent, title: 'Women | HC' },
+  { path: 'pret', component: PretComponent, title: 'Pret | HC' },
+  { path: 'unstitched', component: UnstichedComponent, title: 'unstitched | HC' },
+  { path: 'stitched', component: StitchedComponent, title: 'Stiched | HC' },
+  { path: 'luxury', component: LuxuryComponent, title: 'Luxury | HC' },
+  { path: 'Sale', component: SaleComponent, title: 'Sale | HC' },
+];

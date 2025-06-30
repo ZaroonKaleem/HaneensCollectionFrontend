@@ -1,0 +1,80 @@
+<!-- Offer Banner -->
+<div class="bg-gradient-to-r from-blue-500 to-purple-900/70 text-white text-center py-2 text-xs sm:text-sm md:text-base font-medium relative overflow-hidden">
+  Own Your Style, Light Up the Room. Shop Now!
+</div>
+
+<!-- Navigation Bar -->
+<nav class="flex justify-between items-center px-4 sm:px-6 md:px-8 py-4 bg-primary shadow-md sticky top-0 z-40">
+  <!-- Logo -->
+  <div class="text-2xl font-bold text-gray-800">
+    <img src="./logo.png" class="w-24 sm:w-28 md:w-32 h-auto" alt="Brand Logo">
+  </div>
+
+  <!-- Hamburger Menu Button (Visible on Mobile) -->
+  <button class="md:hidden text-white text-2xl focus:outline-none" (click)="toggleMenu()">
+    <i class="fas fa-bars" *ngIf="!isMenuOpen"></i>
+    <i class="fas fa-times" *ngIf="isMenuOpen"></i>
+  </button>
+
+  <!-- Navigation Links -->
+  <ul class="hidden md:flex md:space-x-6 lg:space-x-8">
+    <li class="relative">
+      <a routerLink="/" class="nav-link text-white font-medium transition-colors duration-300 hover:text-gray-200">Home</a>
+    </li>
+    <li class="relative">
+      <a routerLink="/women" class="nav-link text-white font-medium transition-colors duration-300 hover:text-gray-200">Women</a>
+    </li>
+    <li class="relative">
+      <a routerLink="/pret" class="nav-link text-white font-medium transition-colors duration-300 hover:text-gray-200">Pret</a>
+    </li>
+    <li class="relative">
+      <a routerLink="/unstitched" class="nav-link text-white font-medium transition-colors duration-300 hover:text-gray-200">Unstitched</a>
+    </li>
+     <li class="relative">
+      <a routerLink="/stitched" class="nav-link text-white font-medium transition-colors duration-300 hover:text-gray-200">stitched</a>
+    </li>
+    <li class="relative">
+      <a routerLink="/luxury" class="nav-link text-white font-medium transition-colors duration-300 hover:text-gray-200">Luxury</a>
+    </li>
+    <!-- <li class="relative">
+      <a routerLink="/sale" class="nav-link text-white font-medium transition-colors duration-300 hover:text-gray-200">Sale</a>
+    </li> -->
+  </ul>
+
+  <!-- Mobile Menu (Visible when toggled) -->
+  <div *ngIf="isMenuOpen" class="absolute top-full left-0 w-full bg-primary md:hidden z-40">
+    <ul class="flex flex-col space-y-4 p-4">
+      <li>
+        <a routerLink="/" class="nav-link text-white font-medium transition-colors duration-300 hover:text-gray-200" (click)="toggleMenu()">Home</a>
+      </li>
+      <li>
+        <a routerLink="/women" class="nav-link text-white font-medium transition-colors duration-300 hover:text-gray-200" (click)="toggleMenu()">Women</a>
+      </li>
+      <li>
+        <a routerLink="/pret" class="nav-link text-white font-medium transition-colors duration-300 hover:text-gray-200" (click)="toggleMenu()">Pret</a>
+      </li>
+      <li>
+        <a routerLink="/unstitched" class="nav-link text-white font-medium transition-colors duration-300 hover:text-gray-200" (click)="toggleMenu()">Unstitched</a>
+      </li>
+       <li>
+        <a routerLink="/stitched" class="nav-link text-white font-medium transition-colors duration-300 hover:text-gray-200" (click)="toggleMenu()">Stitched</a>
+      </li>
+      <li>
+        <a routerLink="/luxury" class="nav-link text-white font-medium transition-colors duration-300 hover:text-gray-200" (click)="toggleMenu()">Luxury</a>
+      </li>
+      <!-- <li>
+        <a routerLink="/sale" class="nav-link text-white font-medium transition-colors duration-300 hover:text-gray-200" (click)="toggleMenu()">Sale</a>
+      </li> -->
+    </ul>
+  </div>
+
+  <!-- Icons -->
+  <div class="flex items-center space-x-4 md:space-x-6">
+    <a href="#" class="text-white transition-all duration-300 hover:-translate-y-1">
+      <i class="fas fa-search text-lg sm:text-xl"></i>
+    </a>
+    <a href="#" class="text-white transition-all duration-300 hover:-translate-y-1">
+      <i class="fas fa-shopping-cart text-lg sm:text-xl"></i>
+    </a>
+  </div>
+</nav>

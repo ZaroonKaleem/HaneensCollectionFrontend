@@ -6,6 +6,10 @@ import { UnstichedComponent } from './Pages/unstiched/unstiched.component';
 import { StitchedComponent } from './Pages/stitched/stitched.component';
 import { LuxuryComponent } from './Pages/luxury/luxury.component';
 import { SaleComponent } from './Pages/sale/sale.component';
+import { AdminComponent } from './admin/admin.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { SignInComponent } from './admin/sign-in/sign-in.component';
+import { AuthGuard } from './Guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home | HC' },
@@ -15,4 +19,15 @@ export const routes: Routes = [
   { path: 'stitched', component: StitchedComponent, title: 'Stiched | HC' },
   { path: 'luxury', component: LuxuryComponent, title: 'Luxury | HC' },
   { path: 'Sale', component: SaleComponent, title: 'Sale | HC' },
+
+ {
+    path: 'administrator',
+    children: [
+      { path: '', component: SignInComponent, title: 'Login | HC' },
+      {path: 'dashboard', component: AdminComponent, title: 'Dashboard | HC', children: [
+        { path: '', component: DashboardComponent, title: 'Dashboard | HC', }
+      ]}
+        // canActivate: [AuthGuard]
+    ]
+  }
 ];

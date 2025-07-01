@@ -1,0 +1,33 @@
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary to-purple-900">
+  <div class="bg-black bg-opacity-80 p-10 rounded-2xl shadow-[0_0_20px_rgba(255,0,255,0.5),0_0_40px_rgba(0,255,255,0.5)] w-100 text-center">
+    <img src="./logo.png" class="mb-16" alt="Haneen's Collection Logo">
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-5">
+        <input 
+          type="email" 
+          [(ngModel)]="email" 
+          name="email" 
+          placeholder="Email" 
+          required 
+          class="w-full p-3 rounded bg-gray-950 text-white text-base outline-none shadow-[0_0_10px_rgba(0,255,255,0.5)] focus:shadow-[0_0_15px_rgba(0,255,255,0.8)] transition-shadow"
+        >
+      </div>
+      <div class="mb-12">
+        <input 
+          type="password" 
+          [(ngModel)]="password" 
+          name="password" 
+          placeholder="Password" 
+          required 
+          class="w-full p-3 rounded bg-gray-950 text-white text-base outline-none shadow-[0_0_10px_rgba(0,255,255,0.5)] focus:shadow-[0_0_15px_rgba(0,255,255,0.8)] transition-shadow"
+        >
+      </div>
+      <button 
+        type="submit" 
+        class="w-full p-3 rounded cursor-pointer bg-secondary text-white text-base uppercase font-semibold shadow-[0_0_10px_rgba(255,0,255,0.5)] hover:bg-purple-400 hover:shadow-[0_0_15px_rgba(0,255,255,0.8)] transition-all"
+      >
+        Login
+      </button>
+    </form>
+  </div>
+</div>

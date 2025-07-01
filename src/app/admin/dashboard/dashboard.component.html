@@ -1,0 +1,194 @@
+<div class="p-6">
+  <!-- Dashboard Header -->
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-2xl font-bold text-gray-800">Dashboard Overview</h1>
+    <div class="flex items-center space-x-4">
+      <div class="relative">
+        <select class="appearance-none bg-white border border-gray-300 rounded-md pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+          <option>Last 7 days</option>
+          <option>Last 30 days</option>
+          <option>This month</option>
+          <option>Last month</option>
+        </select>
+        <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+          <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+      </div>
+      <button class="bg-primary cursor-pointer text-white px-4 py-2 rounded-md text-sm hover:bg-primary/90 transition">
+        Generate Report
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Total Products -->
+    <div class="bg-white rounded-lg shadow p-6 border-l-4 border-blue-500">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-500">Total Products</p>
+          <p class="text-2xl font-semibold text-gray-800 mt-1">1,248</p>
+          <p class="text-xs text-green-500 mt-1">↑ 12% from last month</p>
+        </div>
+        <div class="bg-blue-100 p-3 rounded-full">
+          <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Customer Messages -->
+    <div class="bg-white rounded-lg shadow p-6 border-l-4 border-purple-500">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-500">Customer Messages</p>
+          <p class="text-2xl font-semibold text-gray-800 mt-1">56</p>
+          <p class="text-xs text-red-500 mt-1">↓ 3% from last week</p>
+        </div>
+        <div class="bg-purple-100 p-3 rounded-full">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Orders -->
+    <div class="bg-white rounded-lg shadow p-6 border-l-4 border-green-500">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-500">Total Orders</p>
+          <p class="text-2xl font-semibold text-gray-800 mt-1">324</p>
+          <p class="text-xs text-green-500 mt-1">↑ 24% from last month</p>
+        </div>
+        <div class="bg-green-100 p-3 rounded-full">
+          <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Revenue -->
+    <div class="bg-white rounded-lg shadow p-6 border-l-4 border-yellow-500">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-500">Total Revenue</p>
+          <p class="text-2xl font-semibold text-gray-800 mt-1">$12,845</p>
+          <p class="text-xs text-green-500 mt-1">↑ 18% from last month</p>
+        </div>
+        <div class="bg-yellow-100 p-3 rounded-full">
+          <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-8">
+    <!-- Sales Chart -->
+    <!-- <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold text-gray-800">Sales Overview</h2>
+        <select class="text-sm border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary">
+          <option>This Month</option>
+          <option>Last Month</option>
+          <option>Last 6 Months</option>
+        </select>
+      </div>
+      <div class="h-64 bg-gray-50 rounded flex items-center justify-center">
+        <p class="text-gray-400">Sales chart will appear here</p>
+      </div>
+    </div> -->
+
+    <!-- Orders Chart -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold text-gray-800">Recent Orders</h2>
+        <a href="#" class="text-sm text-primary hover:underline">View All</a>
+      </div>
+      <div class="space-y-4">
+        <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded">
+          <div class="flex items-center space-x-3">
+            <div class="bg-blue-100 p-2 rounded-full">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium">Order #1001</p>
+              <p class="text-xs text-gray-500">2 items • $124.00</p>
+            </div>
+          </div>
+          <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Completed</span>
+        </div>
+        
+        <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded">
+          <div class="flex items-center space-x-3">
+            <div class="bg-purple-100 p-2 rounded-full">
+              <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium">Order #1002</p>
+              <p class="text-xs text-gray-500">3 items • $89.00</p>
+            </div>
+          </div>
+          <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">Processing</span>
+        </div>
+        
+        <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded">
+          <div class="flex items-center space-x-3">
+            <div class="bg-red-100 p-2 rounded-full">
+              <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium">Order #1003</p>
+              <p class="text-xs text-gray-500">1 item • $45.00</p>
+            </div>
+          </div>
+          <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">Cancelled</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Messages -->
+  <div class="bg-white rounded-lg shadow p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-semibold text-gray-800">Recent Customer Messages</h2>
+      <a href="#" class="text-sm text-primary hover:underline">View All</a>
+    </div>
+    <div class="space-y-4">
+      <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded">
+        <img src="https://via.placeholder.com/40" alt="Customer" class="w-10 h-10 rounded-full">
+        <div class="flex-1">
+          <div class="flex justify-between">
+            <p class="font-medium">Sarah Johnson</p>
+            <span class="text-xs text-gray-500">2 hours ago</span>
+          </div>
+          <p class="text-sm text-gray-600 mt-1">Hello, I have a question about my recent order #1001. When can I expect delivery?</p>
+        </div>
+      </div>
+      
+      <div class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded">
+        <img src="https://via.placeholder.com/40" alt="Customer" class="w-10 h-10 rounded-full">
+        <div class="flex-1">
+          <div class="flex justify-between">
+            <p class="font-medium">Michael Brown</p>
+            <span class="text-xs text-gray-500">5 hours ago</span>
+          </div>
+          <p class="text-sm text-gray-600 mt-1">I love your new collection! Do you have this in size XL?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

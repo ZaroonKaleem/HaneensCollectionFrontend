@@ -3,14 +3,13 @@ import { Component } from '@angular/core';
 import { ProductFiltersComponent } from '../products/product-filters/product-filters.component';
 
 @Component({
-  selector: 'app-unstiched',
-  standalone: true,
-  imports: [
-       ProductFiltersComponent,
-                CommonModule
-  ],
-  templateUrl: './unstiched.component.html',
-  styleUrl: './unstiched.component.css'
+    selector: 'app-unstiched',
+    imports: [
+        ProductFiltersComponent,
+        CommonModule
+    ],
+    templateUrl: './unstiched.component.html',
+    styleUrl: './unstiched.component.css'
 })
 export class UnstichedComponent {
 ngOnInit() {

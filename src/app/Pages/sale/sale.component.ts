@@ -3,14 +3,13 @@ import { Component } from '@angular/core';
 import { ProductFiltersComponent } from '../products/product-filters/product-filters.component';
 
 @Component({
-  selector: 'app-sale',
-  standalone: true,
-  imports: [
-     ProductFiltersComponent,
+    selector: 'app-sale',
+    imports: [
+        ProductFiltersComponent,
         CommonModule
-  ],
-  templateUrl: './sale.component.html',
-  styleUrl: './sale.component.css'
+    ],
+    templateUrl: './sale.component.html',
+    styleUrl: './sale.component.css'
 })
 export class SaleComponent {
 ngOnInit() {

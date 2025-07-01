@@ -3,14 +3,13 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 
 @Component({
-  selector: 'app-product-filters',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
-  templateUrl: './product-filters.component.html',
-  styleUrl: './product-filters.component.css'
+    selector: 'app-product-filters',
+    imports: [
+        CommonModule,
+        FormsModule
+    ],
+    templateUrl: './product-filters.component.html',
+    styleUrl: './product-filters.component.css'
 })
 export class ProductFiltersComponent {
 @Output() filtersApplied = new EventEmitter<any>();

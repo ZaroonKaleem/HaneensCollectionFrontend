@@ -3,14 +3,13 @@ import { Component } from '@angular/core';
 import { ProductFiltersComponent } from '../products/product-filters/product-filters.component';
 
 @Component({
-  selector: 'app-stitched',
-  standalone: true,
-  imports: [
-         ProductFiltersComponent,
-            CommonModule
-  ],
-  templateUrl: './stitched.component.html',
-  styleUrl: './stitched.component.css'
+    selector: 'app-stitched',
+    imports: [
+        ProductFiltersComponent,
+        CommonModule
+    ],
+    templateUrl: './stitched.component.html',
+    styleUrl: './stitched.component.css'
 })
 export class StitchedComponent {
 ngOnInit() {

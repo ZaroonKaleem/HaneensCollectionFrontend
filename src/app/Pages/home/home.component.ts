@@ -7,17 +7,16 @@ import { InstaProductsComponent } from './insta-products/insta-products.componen
 import { InfoCardsComponent } from './info-cards/info-cards.component';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [
-    HeroComponent,
-    FeaturedProductsComponent,
-    NewsletterComponent,
-    InstaProductsComponent,
-    InfoCardsComponent
-  ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+    selector: 'app-home',
+    imports: [
+        HeroComponent,
+        FeaturedProductsComponent,
+        NewsletterComponent,
+        InstaProductsComponent,
+        InfoCardsComponent
+    ],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css'
 })
 export class HomeComponent {
 

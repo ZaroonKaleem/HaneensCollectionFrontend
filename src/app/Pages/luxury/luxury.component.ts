@@ -3,14 +3,13 @@ import { Component } from '@angular/core';
 import { ProductFiltersComponent } from '../products/product-filters/product-filters.component';
 
 @Component({
-  selector: 'app-luxury',
-  standalone: true,
-  imports: [
-     ProductFiltersComponent,
+    selector: 'app-luxury',
+    imports: [
+        ProductFiltersComponent,
         CommonModule
-  ],
-  templateUrl: './luxury.component.html',
-  styleUrl: './luxury.component.css'
+    ],
+    templateUrl: './luxury.component.html',
+    styleUrl: './luxury.component.css'
 })
 export class LuxuryComponent {
 ngOnInit() {

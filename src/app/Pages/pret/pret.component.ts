@@ -4,14 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { ProductFiltersComponent } from '../products/product-filters/product-filters.component';
 
 @Component({
-  selector: 'app-pret',
-  standalone: true,
-  imports: [
- ProductFiltersComponent,
-    CommonModule
-  ],
-  templateUrl: './pret.component.html',
-  styleUrl: './pret.component.css'
+    selector: 'app-pret',
+    imports: [
+        ProductFiltersComponent,
+        CommonModule
+    ],
+    templateUrl: './pret.component.html',
+    styleUrl: './pret.component.css'
 })
 export class PretComponent {
 ngOnInit() {

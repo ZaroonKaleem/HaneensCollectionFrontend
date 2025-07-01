@@ -3,14 +3,13 @@ import { ProductFiltersComponent } from './product-filters/product-filters.compo
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-products',
-  standalone: true,
-  imports: [
-    ProductFiltersComponent,
-    CommonModule
-  ],
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+    selector: 'app-products',
+    imports: [
+        ProductFiltersComponent,
+        CommonModule
+    ],
+    templateUrl: './products.component.html',
+    styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit {
 ngOnInit() {

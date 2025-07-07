@@ -9,7 +9,7 @@ import { SaleComponent } from './Pages/sale/sale.component';
 import { AdminComponent } from './admin/admin.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { SignInComponent } from './admin/sign-in/sign-in.component';
-import { AuthGuard } from './Guards/auth.guard';
+import { HeroSectionEditorComponent } from './admin/hero-section-editor/hero-section-editor.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home | HC' },
@@ -24,10 +24,15 @@ export const routes: Routes = [
     path: 'administrator',
     children: [
       { path: '', component: SignInComponent, title: 'Login | HC' },
-      {path: 'dashboard', component: AdminComponent, title: 'Dashboard | HC', children: [
-        { path: '', component: DashboardComponent, title: 'Dashboard | HC', }
-      ]}
-        // canActivate: [AuthGuard]
+      {
+        path: '',
+        component: AdminComponent,
+        // canActivate: [AuthGuard],
+        children: [
+          { path: 'dashboard', component: DashboardComponent, title: 'Dashboard | HC' },
+          { path: 'hero-editor', component: HeroSectionEditorComponent, title: 'Hero Section Edit | HC' }
+        ]
+      }
     ]
   }
 ];

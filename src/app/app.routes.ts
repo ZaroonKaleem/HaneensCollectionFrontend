@@ -30,7 +30,8 @@ export const routes: Routes = [
         // canActivate: [AuthGuard],
         children: [
           { path: 'dashboard', component: DashboardComponent, title: 'Dashboard | HC' },
-          { path: 'hero-editor', component: HeroSectionEditorComponent, title: 'Hero Section Edit | HC' }
+          { path: 'hero-editor', component: HeroSectionEditorComponent, title: 'Hero Section Edit | HC' },
+          // {path: 'instagram-products', component:}
         ]
       }
     ]

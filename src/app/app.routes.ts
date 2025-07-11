@@ -10,6 +10,7 @@ import { AdminComponent } from './admin/admin.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { SignInComponent } from './admin/sign-in/sign-in.component';
 import { HeroSectionEditorComponent } from './admin/hero-section-editor/hero-section-editor.component';
+import { InstagramProductsEditorComponent } from './admin/instagram-products-editor/instagram-products-editor.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home | HC' },
@@ -31,7 +32,7 @@ export const routes: Routes = [
         children: [
           { path: 'dashboard', component: DashboardComponent, title: 'Dashboard | HC' },
           { path: 'hero-editor', component: HeroSectionEditorComponent, title: 'Hero Section Edit | HC' },
-          // {path: 'instagram-products', component:}
+          {path: 'instagram-products-management', component: InstagramProductsEditorComponent, title: 'Istagram | HC'}
         ]
       }
     ]

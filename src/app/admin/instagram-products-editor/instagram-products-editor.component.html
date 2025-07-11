@@ -1,0 +1,108 @@
+<div class="uploader-header bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-t-lg text-center">
+    <h1 class="uploader-title text-2xl font-bold">Instagram Post Upload</h1>
+    <p class="uploader-subtitle text-sm mt-1">Share your content with a square flair</p>
+</div>
+<div class="instagram-uploader-container max-w-lg mx-auto bg-white rounded-lg shadow-lg p-6">
+    <!-- Header with gradient background -->
+
+    <!-- Main content area -->
+    <div class="uploader-content p-6">
+        <!-- Status indicators -->
+        <div *ngIf="isSubmitting" class="upload-status uploading flex flex-col items-center">
+            <div class="spinner border-4 border-t-blue-500 border-gray-200 rounded-full w-8 h-8 animate-spin"></div>
+            <span class="mt-2 text-gray-700">Publishing your content...</span>
+            <div class="upload-progress w-full mt-4" *ngIf="uploadProgress > 0">
+                <div class="progress-bar bg-blue-500 h-2 rounded" [style.width.%]="uploadProgress"></div>
+                <span class="progress-text text-sm text-gray-600 mt-1">{{uploadProgress}}%</span>
+            </div>
+        </div>
+
+        <div *ngIf="messageType === 'success'" class="upload-status success flex flex-col items-center">
+            <svg class="checkmark w-12 h-12 text-green-500" viewBox="0 0 52 52">
+                <circle class="checkmark-circle stroke-current" cx="26" cy="26" r="25" fill="none" stroke-width="2" />
+                <path class="checkmark-check stroke-current" fill="none" stroke-width="2" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+            </svg>
+            <span class="mt-2 text-green-600">{{ message }}</span>
+            <button type="button" class="action-btn mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" (click)="resetForm()">Upload Another</button>
+        </div>
+
+        <div *ngIf="messageType === 'error'" class="upload-status error flex flex-col items-center">
+            <svg class="crossmark w-12 h-12 text-red-500" viewBox="0 0 52 52">
+                <circle class="crossmark-circle stroke-current" cx="26" cy="26" r="25" fill="none" stroke-width="2" />
+                <path class="crossmark-cross stroke-current" fill="none" stroke-width="2" d="M16 16 36 36 M36 16 16 36" />
+            </svg>
+            <span class="mt-2 text-red-600">{{ message }}</span>
+            <button type="button" class="action-btn mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" (click)="messageType = null">Try Again</button>
+        </div>
+
+        <!-- Single post form -->
+        <form *ngIf="!isSubmitting && messageType !== 'success'" 
+              (ngSubmit)="onSubmit($event)" 
+              class="post-form flex flex-col gap-4">
+            <div class="post-card">
+                <!-- Square image upload area -->
+                <div class="image-upload-area relative aspect-square bg-gray-100 rounded-lg flex items-center justify-center" [class.active]="post.image">
+                    <input #fileInput 
+                           type="file" 
+                           id="file" 
+                           accept="image/*" 
+                           (change)="onImageChange($event)"
+                           class="file-input absolute inset-0 opacity-0 cursor-pointer" />
+                    <label for="file" class="upload-label flex flex-col items-center justify-center w-full h-full">
+                        <div *ngIf="!post.image; else previewBlock" class="text-center">
+                            <svg class="upload-icon w-12 h-12 text-gray-400" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-width="2" d="M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-5M12 3v14m-5-5l5-5 5 5" />
+                            </svg>
+                            <span class="mt-2 text-gray-600">Drag & drop or click to upload</span>
+                            <small class="file-requirements text-gray-500 mt-1">JPEG, PNG (Max 5MB)</small>
+                        </div>
+                        <ng-template #previewBlock>
+                            <img [src]="getImagePreview(post.image)" alt="Preview" class="image-preview w-full h-full object-cover rounded-lg">
+                            <div class="image-actions absolute bottom-2 left-2 right-2 flex gap-2">
+                                <button type="button" 
+                                        class="change-image-btn bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600" 
+                                        (click)="fileInput.click(); $event.stopPropagation()">
+                                    Change Image
+                                </button>
+                                <button type="button" 
+                                        class="remove-image-btn bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600" 
+                                        (click)="post.image = null; $event.stopPropagation()">
+                                    Remove
+                                </button>
+                            </div>
+                        </ng-template>
+                    </label>
+                </div>
+
+                <!-- Link input -->
+                <div class="link-input-container relative mt-4">
+                    <svg class="link-icon w-6 h-6 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-width="2" d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                        <path stroke="currentColor" stroke-width="2" d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                    </svg>
+                    <input
+                        type="url"
+                        [value]="post.link"
+                        (input)="onLinkChange($event)"
+                        placeholder="Paste Instagram link"
+                        required
+                        class="link-input w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <div class="input-validation text-red-500 text-sm mt-1" *ngIf="post.link && !isValidUrl(post.link)">
+                        Please enter a valid URL
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" 
+                    [disabled]="isSubmitting || !isFormValid()" 
+                    class="submit-btn flex items-center justify-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 disabled:bg-gray-400">
+                <span>{{ isSubmitting ? 'Uploading...' : 'Publish Post' }}</span>
+                <svg class="arrow-icon w-5 h-5" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </button>
+        </form>
+    </div>
+</div>

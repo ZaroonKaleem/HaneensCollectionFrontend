@@ -1,0 +1,284 @@
+<div class="w-full px-4 sm:px-6 lg:px-8 py-6 bg-white shadow-lg rounded-lg mt-6">
+  <h2 class="text-2xl font-bold mb-4 flex items-center">
+    <svg class="w-6 h-6 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+    </svg>
+    Add Featured Product
+  </h2>
+
+  <!-- Loader -->
+  <div *ngIf="isLoading" class="mb-4 p-4 bg-gray-100 rounded-lg flex items-center justify-center">
+    <svg class="w-6 h-6 animate-spin text-indigo-600 mr-2" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+    <span class="text-gray-700">Submitting...</span>
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="message.type === 'success' && !isLoading" class="mb-4 p-4 bg-green-100 text-green-600 rounded-lg flex items-center">
+    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+    </svg>
+    <span>{{ message.text }}</span>
+    <button type="button" (click)="resetForm()" class="ml-4 bg-green-600 text-white px-3 py-1 rounded-md hover:bg-green-700 flex items-center">
+      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+      </svg>
+      Add Another
+    </button>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="message.type === 'error' && !isLoading" class="mb-4 p-4 bg-red-100 text-red-600 rounded-lg flex items-center">
+    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <span>{{ message.text }}</span>
+  </div>
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading && message.type !== 'success'">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Name <span class="text-red-500">*</span></label>
+        <input id="name" type="text" formControlName="name" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" required aria-describedby="name-error">
+        <div *ngIf="productForm.get('name')?.hasError('required') && productForm.get('name')?.touched" class="text-red-600 text-sm mt-1" id="name-error">
+          Name is required
+        </div>
+        <div *ngIf="productForm.get('name')?.hasError('maxlength') && productForm.get('name')?.touched" class="text-red-600 text-sm mt-1">
+          Name cannot exceed 100 characters
+        </div>
+      </div>
+
+      <div>
+        <label for="category" class="block text-sm font-medium text-gray-700">Category <span class="text-red-500">*</span></label>
+        <input id="category" type="text" formControlName="category" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" required aria-describedby="category-error">
+        <div *ngIf="productForm.get('category')?.hasError('required') && productForm.get('category')?.touched" class="text-red-600 text-sm mt-1" id="category-error">
+          Category is required
+        </div>
+        <div *ngIf="productForm.get('category')?.hasError('maxlength') && productForm.get('category')?.touched" class="text-red-600 text-sm mt-1">
+          Category cannot exceed 50 characters
+        </div>
+      </div>
+
+      <div>
+        <label for="shortDescription" class="block text-sm font-medium text-gray-700">Short Description</label>
+        <textarea id="shortDescription" formControlName="shortDescription" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" aria-describedby="description-error"></textarea>
+        <div *ngIf="productForm.get('shortDescription')?.hasError('maxlength') && productForm.get('shortDescription')?.touched" class="text-red-600 text-sm mt-1" id="description-error">
+          Description cannot exceed 200 characters
+        </div>
+      </div>
+
+      <div>
+        <label for="originalPrice" class="block text-sm font-medium text-gray-700">Original Price <span class="text-red-500">*</span></label>
+        <input id="originalPrice" type="number" formControlName="originalPrice" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" required min="0.01" step="0.01" aria-describedby="originalPrice-error">
+        <div *ngIf="productForm.get('originalPrice')?.hasError('required') && productForm.get('originalPrice')?.touched" class="text-red-600 text-sm mt-1" id="originalPrice-error">
+          Original Price is required
+        </div>
+        <div *ngIf="productForm.get('originalPrice')?.hasError('min') && productForm.get('originalPrice')?.touched" class="text-red-600 text-sm mt-1">
+          Price must be greater than 0
+        </div>
+      </div>
+
+      <div>
+        <label for="salePercentage" class="block text-sm font-medium text-gray-700">Sale Percentage</label>
+        <input id="salePercentage" type="number" formControlName="salePercentage" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" min="0" max="100" step="0.01" aria-describedby="salePercentage-error">
+        <div *ngIf="productForm.get('salePercentage')?.hasError('min') && productForm.get('salePercentage')?.touched" class="text-red-600 text-sm mt-1" id="salePercentage-error">
+          Sale Percentage must be at least 0
+        </div>
+        <div *ngIf="productForm.get('salePercentage')?.hasError('max') && productForm.get('salePercentage')?.touched" class="text-red-600 text-sm mt-1">
+          Sale Percentage cannot exceed 100
+        </div>
+      </div>
+
+      <div>
+        <label for="salePrice" class="block text-sm font-medium text-gray-700">Sale Price</label>
+        <input id="salePrice" type="number" formControlName="salePrice" readonly class="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-gray-100 cursor-not-allowed" aria-describedby="salePrice-error">
+        <div *ngIf="productForm.get('salePrice')?.hasError('min') && productForm.get('salePrice')?.touched" class="text-red-600 text-sm mt-1" id="salePrice-error">
+          Sale Price must be non-negative
+        </div>
+      </div>
+
+      <div>
+        <label for="stockQuantity" class="block text-sm font-medium text-gray-700">Stock Quantity <span class="text-red-500">*</span></label>
+        <input id="stockQuantity" type="number" formControlName="stockQuantity" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" required min="0" aria-describedby="stockQuantity-error">
+        <div *ngIf="productForm.get('stockQuantity')?.hasError('required') && productForm.get('stockQuantity')?.touched" class="text-red-600 text-sm mt-1" id="stockQuantity-error">
+          Stock Quantity is required
+        </div>
+        <div *ngIf="productForm.get('stockQuantity')?.hasError('min') && productForm.get('stockQuantity')?.touched" class="text-red-600 text-sm mt-1">
+          Stock Quantity must be non-negative
+        </div>
+      </div>
+
+      <div>
+        <label for="averageRating" class="block text-sm font-medium text-gray-700">Average Rating</label>
+        <input id="averageRating" type="number" formControlName="averageRating" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" min="0" max="5" step="0.1" aria-describedby="averageRating-error">
+        <div *ngIf="productForm.get('averageRating')?.hasError('min') && productForm.get('averageRating')?.touched" class="text-red-600 text-sm mt-1" id="averageRating-error">
+          Average Rating must be at least 0
+        </div>
+        <div *ngIf="productForm.get('averageRating')?.hasError('max') && productForm.get('averageRating')?.touched" class="text-red-600 text-sm mt-1">
+          Average Rating cannot exceed 5
+        </div>
+      </div>
+
+      <div>
+        <label for="ratingCount" class="block text-sm font-medium text-gray-700">Rating Count</label>
+        <input id="ratingCount" type="number" formControlName="ratingCount" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" min="0" aria-describedby="ratingCount-error">
+        <div *ngIf="productForm.get('ratingCount')?.hasError('min') && productForm.get('ratingCount')?.touched" class="text-red-600 text-sm mt-1" id="ratingCount-error">
+          Rating Count must be non-negative
+        </div>
+      </div>
+
+      <div>
+        <label for="material" class="block text-sm font-medium text-gray-700">Material</label>
+        <input id="material" type="text" formControlName="material" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" aria-describedby="material-error">
+        <div *ngIf="productForm.get('material')?.hasError('maxlength') && productForm.get('material')?.touched" class="text-red-600 text-sm mt-1" id="material-error">
+          Material cannot exceed 100 characters
+        </div>
+      </div>
+
+      <div>
+        <label for="shippingInfo" class="block text-sm font-medium text-gray-700">Shipping Info</label>
+        <input id="shippingInfo" type="text" formControlName="shippingInfo" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" aria-describedby="shippingInfo-error">
+        <div *ngIf="productForm.get('shippingInfo')?.hasError('maxlength') && productForm.get('shippingInfo')?.touched" class="text-red-600 text-sm mt-1" id="shippingInfo-error">
+          Shipping Info cannot exceed 200 characters
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 flex flex-col md:flex-row gap-6">
+      <div class="flex-1">
+        <h3 class="text-lg font-semibold flex items-center">
+          <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h10v10H7z"></path>
+          </svg>
+          Sizes Available
+        </h3>
+        <div formArrayName="sizesAvailable" class="flex flex-col gap-2">
+          <div *ngFor="let size of sizesAvailable.controls; let i=index" class="flex items-center gap-2">
+            <div class="flex-1">
+              <input [formControlName]="i" type="text" class="block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Size" required>
+              <div *ngIf="sizesAvailable.controls[i].hasError('required') && sizesAvailable.controls[i].touched" class="text-red-600 text-sm mt-1" id="size-error-{{i}}">
+                Size is required
+              </div>
+            </div>
+            <button type="button" (click)="removeSize(i)" [disabled]="sizesAvailable.length === 1" class="text-red-600 hover:text-red-800" aria-label="Remove Size">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <button type="button" (click)="addSize()" class="mt-2 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 flex items-center" aria-label="Add Size">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Add Size
+          </button>
+        </div>
+      </div>
+
+      <div class="flex-1">
+        <h3 class="text-lg font-semibold flex items-center">
+          <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
+          </svg>
+          Color Options
+        </h3>
+        <div formArrayName="colorOptions" class="flex flex-col gap-2">
+          <div *ngFor="let color of colorOptions.controls; let i=index" class="flex items-center gap-2">
+            <div class="flex-1">
+              <input [formControlName]="i" type="text" class="block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Color" required>
+              <div *ngIf="colorOptions.controls[i].hasError('required') && colorOptions.controls[i].touched" class="text-red-600 text-sm mt-1" id="color-error-{{i}}">
+                Color is required
+              </div>
+            </div>
+            <button type="button" (click)="removeColor(i)" [disabled]="colorOptions.length === 1" class="text-red-600 hover:text-red-800" aria-label="Remove Color">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <button type="button" (click)="addColor()" class="mt-2 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 flex items-center" aria-label="Add Color">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Add Color
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <h3 class="text-lg font-semibold flex items-center">
+        <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        Images
+      </h3>
+      <div formArrayName="images" class="flex flex-col gap-4">
+        <div *ngFor="let image of images.controls; let i=index" [formGroupName]="i" class="p-4 border border-gray-300 rounded-md">
+          <div class="flex items-center gap-2">
+            <div class="flex-1">
+            <label [for]="'altText-' + i" class="block text-sm font-medium text-gray-700">Alt Text</label>
+              <input [id]="'altText-' + i" type="text" formControlName="altText" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+              <div *ngIf="image.get('altText')?.hasError('maxlength') && image.get('altText')?.touched" class="text-red-600 text-sm mt-1" id="altText-error-{{i}}">
+                Alt Text cannot exceed 200 characters
+              </div>
+            </div>
+            <label class="flex items-center gap-2">
+              <input type="checkbox" formControlName="isPrimary" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" aria-label="Set as Primary Image">
+              <span class="text-sm text-gray-700">Primary Image</span>
+            </label>
+          </div>
+          <input type="file" accept="image/*" (change)="onFileChange($event, i)" class="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-indigo-50 file:text-indigo-700 file:hover:bg-indigo-100" required>
+          <div *ngIf="image.get('imageUrl')?.hasError('required') && image.touched" class="text-red-600 text-sm mt-1" id="image-error-{{i}}">
+            Image is required
+          </div>
+          <div *ngIf="image.get('imageUrl')?.value?.name" class="mt-2 text-sm text-gray-700">
+            Selected File: {{ image.get('imageUrl')?.value.name }}
+          </div>
+          <div *ngIf="image.get('imageUrl')?.value && !image.get('imageUrl')?.value?.name" class="mt-2 text-sm text-gray-700">
+            Uploaded Image URL: {{ image.get('imageUrl')?.value }}
+          </div>
+          <button type="button" (click)="removeImage(i)" [disabled]="images.length === 1" class="mt-2 text-red-600 hover:text-red-800" aria-label="Remove Image">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <button type="button" (click)="addImage()" class="mt-2 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 flex items-center" aria-label="Add Image">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          Add Image
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-6 flex gap-4">
+      <label class="flex items-center gap-2">
+        <input type="checkbox" formControlName="isNew" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" aria-label="Mark as New">
+        <span class="text-sm text-gray-700">Is New</span>
+      </label>
+      <label class="flex items-center gap-2">
+        <input type="checkbox" formControlName="isExclusive" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" aria-label="Mark as Exclusive">
+        <span class="text-sm text-gray-700">Is Exclusive</span>
+      </label>
+    </div>
+
+    <div class="mt-6 flex justify-end gap-4">
+      <button type="submit" [disabled]="productForm.invalid || pendingImageUploads > 0" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 disabled:bg-gray-400 flex items-center" aria-label="Create Product">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        Create Product
+      </button>
+      <button type="button" (click)="resetForm()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 flex items-center" aria-label="Reset Form">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+        </svg>
+        Reset
+      </button>
+    </div>
+  </form>
+</div>

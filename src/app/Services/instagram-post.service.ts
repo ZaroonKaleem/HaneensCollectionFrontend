@@ -3,6 +3,15 @@ import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 
+interface InstagramPost {
+  id: number;
+  imageUrl: string;
+  instagramLink: string;
+  imageContentType: string;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,5 +32,9 @@ export class InstagramPostService {
       reportProgress: true,
       observe: 'events'
     });
+  }
+
+   getInstagramPosts(): Observable<InstagramPost | InstagramPost[]> {
+    return this.http.get<InstagramPost | InstagramPost[]>(`${this.apiUrl}/InstagramPost`);
   }
 }

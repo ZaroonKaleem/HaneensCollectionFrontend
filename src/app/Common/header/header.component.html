@@ -69,12 +69,35 @@
   </div>
 
   <!-- Icons -->
-  <div class="flex items-center space-x-4 md:space-x-6">
-    <a href="#" class="text-white transition-all duration-300 hover:-translate-y-1">
+  <!-- <div class="flex items-center space-x-4 md:space-x-6"> -->
+    <!-- <a href="#" class="text-white transition-all duration-300 hover:-translate-y-1">
       <i class="fas fa-search text-lg sm:text-xl"></i>
-    </a>
-    <a href="#" class="text-white transition-all duration-300 hover:-translate-y-1">
+    </a> -->
+    <!-- <a href="#" class="text-white transition-all duration-300 hover:-translate-y-1">
       <i class="fas fa-shopping-cart text-lg sm:text-xl"></i>
-    </a>
+    </a> -->
+
+    <div class="flex items-center space-x-4 md:space-x-6">
+  <a href="#" class="text-white transition-all duration-300 hover:-translate-y-1">
+    <i class="fas fa-search text-lg sm:text-xl"></i>
+  </a>
+  <div class="relative">
+    <button 
+      class="text-white transition-all duration-300 hover:-translate-y-1 relative"
+      (click)="toggleCart()"
+    >
+      <i class="fas fa-shopping-cart text-lg sm:text-xl"></i>
+      <span 
+        *ngIf="cartItemCount > 0"
+        class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+      >
+        {{ cartItemCount }}
+      </span>
+    </button>
   </div>
+</div>
+  <!-- </div> -->
 </nav>
+
+
+<app-cart [isOpen]="isCartOpen" (closeCart)="isCartOpen = false"></app-cart>

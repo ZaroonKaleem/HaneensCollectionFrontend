@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -9,9 +9,9 @@ import { authReducer } from './Store/Auth/auth.reducer';
 import { provideHttpClient } from '@angular/common/http';
 import { heroSectionReducer } from './Store/HeroSection/hero-section.reducer';
 import { HeroSectionEffects } from './Store/HeroSection/hero-section.effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
-  // providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)]
   providers: [
     provideRouter(routes),
     provideStore({ 
@@ -22,8 +22,12 @@ export const appConfig: ApplicationConfig = {
       AuthEffects,
       HeroSectionEffects
     ]),
+    provideHttpClient(),
 
-    provideHttpClient()
-    // ... other providers
+    // ✅ Required for Angular animations
+    importProvidersFrom(BrowserAnimationsModule)
+
+    // Optionally re-enable if needed:
+    // provideZoneChangeDetection({ eventCoalescing: true })
   ]
 };

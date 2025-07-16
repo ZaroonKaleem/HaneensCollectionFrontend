@@ -11,9 +11,16 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { SignInComponent } from './admin/sign-in/sign-in.component';
 import { HeroSectionEditorComponent } from './admin/hero-section-editor/hero-section-editor.component';
 import { InstagramProductsEditorComponent } from './admin/instagram-products-editor/instagram-products-editor.component';
+import { AddFeaturedProductsComponent } from './admin/add-featured-products/add-featured-products.component';
+import { ProductDetailsComponent } from './Pages/home/featured-products/product-details/product-details.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home | HC' },
+  {
+    path: 'product/:id',  // Dynamic route parameter for product ID
+    component: ProductDetailsComponent,
+    title: 'Product Details'
+  },
   { path: 'women', component: ProductsComponent, title: 'Women | HC' },
   { path: 'pret', component: PretComponent, title: 'Pret | HC' },
   { path: 'unstitched', component: UnstichedComponent, title: 'unstitched | HC' },
@@ -32,7 +39,8 @@ export const routes: Routes = [
         children: [
           { path: 'dashboard', component: DashboardComponent, title: 'Dashboard | HC' },
           { path: 'hero-editor', component: HeroSectionEditorComponent, title: 'Hero Section Edit | HC' },
-          {path: 'instagram-products-management', component: InstagramProductsEditorComponent, title: 'Istagram | HC'}
+          { path: 'instagram-products-management', component: InstagramProductsEditorComponent, title: 'Instagram | HC' },
+          {path: 'featured-products-management', component: AddFeaturedProductsComponent, title: 'Featured Products | HC'}
         ]
       }
     ]

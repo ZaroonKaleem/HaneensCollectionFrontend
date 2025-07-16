@@ -1,131 +1,52 @@
-<!-- Featured Products Section -->
-<div class="featured-section px-5 py-16 text-center">
-    <div class="section-header flex justify-between items-center mb-10 animate-fadeInUp" style="animation-delay: 0.5s;">
-        <h2 class="text-3xl font-bold">FEATURED PRODUCTS</h2>
-        <a routerLink="/women" class="text-primary font-medium hover:underline">VIEW ALL</a>
+<div class="featured-section px-6 py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto">
+    <div class="section-header flex flex-col sm:flex-row justify-between items-center mb-12">
+      <h2 class="text-4xl font-bold text-gray-900 tracking-tight">Featured Products</h2>
+      <a routerLink="/products" class="mt-4 sm:mt-0 text-red-600 font-semibold hover:text-red-700 transition-colors duration-200">View All Products</a>
     </div>
 
     <!-- Product Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <!-- Product 1 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 animate-fadeInUp"
-            style="animation-delay: 0.6s;">
-            <div class="relative overflow-hidden group">
-                <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80"
-                    alt="Men's Casual Shirt" class="w-full h-64 object-cover" loading="lazy">
-                <div
-                    class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300">
-                </div>
-                <button
-                    class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-red-500">
-                    Add to Cart
-                </button>
-            </div>
-            <div class="p-4">
-                <h3 class="font-semibold text-lg">Casual Linen Shirt</h3>
-                <div class="flex justify-center items-center mt-2">
-                    <div class="flex text-yellow-400">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <span class="text-gray-500 text-sm ml-2">(24)</span>
-                </div>
-                <p class="text-primary font-bold text-xl mt-2">$49.99</p>
-            </div>
-        </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div *ngFor="let product of products" class="group rounded-md overflow-hidden relative transition-shadow duration-300">
+        <!-- Clickable Image Container -->
+        <a [routerLink]="['/product', product.productId]" class="block relative overflow-hidden">
+          <img [src]="product.images[0].imageUrl || 'assets/placeholder.jpg'"
+               [alt]="product.images[0].altText || product.name"
+               class="w-full h-96 object-cover transition-all duration-300 group-hover:opacity-70 group-hover:scale-105"
+               loading="lazy">
+          
+          <!-- Add to Cart Button (positioned absolutely within the clickable area) -->
+          <button class="absolute inset-0 m-auto w-40 h-12 bg-white text-black cursor-pointer opacity-0 rounded-full
+                        group-hover:opacity-100 transition-all duration-300 flex items-center justify-center 
+                        hover:bg-black hover:text-white hover:w-44"
+                  (click)="addToCart(product); $event.stopPropagation()">
+            <!-- Shopping cart icon with animation -->
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                 class="h-6 w-6 mr-2 transition-all duration-300 transform group-hover:scale-110 group-hover:rotate-[20deg]"
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span class="font-medium transition-all duration-300 group-hover:tracking-wider">Add to Cart</span>
+          </button>
+        </a>
 
-        <!-- Product 2 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 animate-fadeInUp"
-            style="animation-delay: 0.7s;">
-            <div class="relative overflow-hidden group">
-                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"
-                    alt="Women's Summer Dress" class="w-full h-64 object-cover" loading="lazy">
-                <div
-                    class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300">
-                </div>
-                <button
-                    class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-red-500">
-                    Add to Cart
-                </button>
-            </div>
-            <div class="p-4">
-                <h3 class="font-semibold text-lg">Summer Floral Dress</h3>
-                <div class="flex justify-center items-center mt-2">
-                    <div class="flex text-yellow-400">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                    <span class="text-gray-500 text-sm ml-2">(18)</span>
-                </div>
-                <p class="text-primary font-bold text-xl mt-2">$59.99 <span
-                        class="text-gray-400 text-sm line-through">$69.99</span></p>
-            </div>
-        </div>
+        <!-- Product Details -->
+        <div class="pb-4 pt-2 px-3">
+          <h3 class="text-sm mb-1"> 
+            <span class="font-semibold">{{ product.name }}</span> - 
+            <span class="font-normal">{{product.shortDescription }}</span>
+          </h3>
 
-        <!-- Product 3 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 animate-fadeInUp"
-            style="animation-delay: 0.8s;">
-            <div class="relative overflow-hidden group">
-                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1036&q=80"
-                    alt="Men's Sneakers" class="w-full h-64 object-cover" loading="lazy">
-                <div
-                    class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300">
-                </div>
-                <button
-                    class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-red-500">
-                    Add to Cart
-                </button>
-            </div>
-            <div class="p-4">
-                <h3 class="font-semibold text-lg">Classic White Sneakers</h3>
-                <div class="flex justify-center items-center mt-2">
-                    <div class="flex text-yellow-400">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <span class="text-gray-500 text-sm ml-2">(32)</span>
-                </div>
-                <p class="text-primary font-bold text-xl mt-2">$39.99</p>
-            </div>
+          <!-- Price -->
+          <div class="flex items-center">
+            <span class="text-md font-bold text-red-600">Rs. {{ product.salePrice ?? product.originalPrice }}</span>
+            <span *ngIf="product.salePrice && product.originalPrice && product.salePrice < product.originalPrice" 
+                  class="ml-2 text-sm text-gray-500 line-through">
+              Rs. {{ product.originalPrice }}
+            </span>
+          </div>
         </div>
-
-        <!-- Product 4 -->
-        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 animate-fadeInUp"
-            style="animation-delay: 0.9s;">
-            <div class="relative overflow-hidden group">
-                <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80"
-                    alt="Women's Handbag" class="w-full h-64 object-cover" loading="lazy">
-                <div
-                    class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300">
-                </div>
-                <button
-                    class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-red-500">
-                    Add to Cart
-                </button>
-            </div>
-            <div class="p-4">
-                <h3 class="font-semibold text-lg">Leather Crossbody Bag</h3>
-                <div class="flex justify-center items-center mt-2">
-                    <div class="flex text-yellow-400">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <span class="text-gray-500 text-sm ml-2">(27)</span>
-                </div>
-                <p class="text-primary font-bold text-xl mt-2">$79.99</p>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>

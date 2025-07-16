@@ -5,3 +5,25 @@
   --color-primary: #020b44;
   --color-secondary: #8e7bee;
 }
+
+
+/* Add these to your styles.css */
+.custom-toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 24px;
+  border-radius: 4px;
+  color: white;
+  z-index: 1000;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+.custom-toast-success {
+  background-color: #4CAF50; /* Green */
+}
+
+.custom-toast-error {
+  background-color: #F44336; /* Red */
+}

@@ -1,0 +1,101 @@
+<div class="container mx-auto px-4 py-12">
+  <div *ngIf="isLoading" class="text-center py-20">
+    <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-600"></div>
+    <p class="mt-4 text-gray-600">Loading product details...</p>
+  </div>
+
+  <div *ngIf="error" class="text-center py-20">
+    <p class="text-red-600 text-lg">{{ error }}</p>
+    <a routerLink="/" class="mt-4 inline-block bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition cursor-pointer">
+      Back to Home
+    </a>
+  </div>
+
+  <div *ngIf="product && !isLoading" class="flex flex-col md:flex-row gap-8">
+    <!-- Image Section (Left) -->
+    <div class="md:w-1/2">
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img [src]="product.images[0].imageUrl || 'assets/placeholder.jpg'" 
+             [alt]="product.name"
+             class="w-full h-auto object-cover">
+      </div>
+    </div>
+
+    <!-- Details Section (Right) -->
+    <div class="md:w-1/2">
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ product.name }}</h1>
+        
+        <div class="flex items-center mb-4">
+          <div class="flex text-yellow-400 mr-2">
+            <span *ngFor="let star of getStarRating(product.averageRating)">
+              <i [class]="star"></i>
+            </span>
+          </div>
+          <span class="text-gray-600 text-sm">({{ product.ratingCount || 0 }} reviews)</span>
+        </div>
+
+        <div class="mb-6">
+          <p class="text-gray-700">{{ product.shortDescription }}</p>
+        </div>
+
+        <div class="mb-6">
+          <div class="flex items-center">
+            <span class="text-2xl font-bold text-red-600 mr-4">
+              Rs. {{ product.salePrice ?? product.originalPrice }}
+            </span>
+            <span *ngIf="product.salePrice" class="text-lg text-gray-500 line-through">
+              Rs. {{ product.originalPrice }}
+            </span>
+            <span *ngIf="product.salePrice" class="ml-4 bg-red-100 text-red-800 text-sm font-medium px-2.5 py-0.5 rounded">
+              {{ calculateDiscount(product) }}% OFF
+            </span>
+          </div>
+        </div>
+
+        <!-- Combined Quantity Selector and Add to Cart Button -->
+        <div class="flex items-center gap-4 mb-8">
+          <!-- Quantity Selector -->
+          <div class="flex items-center">
+            <label class="text-sm font-medium text-gray-700 mr-2">Qty:</label>
+            <button (click)="decreaseQuantity()" 
+                    class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-l cursor-pointer">
+              -
+            </button>
+            <span class="bg-gray-100 px-4 py-2 text-center">{{ quantity }}</span>
+            <button (click)="increaseQuantity()" 
+                    class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-r cursor-pointer">
+              +
+            </button>
+          </div>
+
+          <!-- Add to Cart Button -->
+          <button (click)="addToCart()"
+                  class="add-to-cart-btn flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded transition duration-300 cursor-pointer">
+            Add to Cart (Rs. {{ (product.salePrice ?? product.originalPrice) * quantity }})
+          </button>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="mt-8 pt-6 border-t border-gray-200">
+          <div *ngIf="product.colorOptions" class="mb-4">
+            <span class="text-sm font-medium text-gray-700">Color: </span>
+            <span class="text-sm text-gray-600">{{ product.colorOptions.join(', ') }}</span>
+          </div>
+          <div *ngIf="product.sizesAvailable" class="mb-4">
+            <span class="text-sm font-medium text-gray-700">Sizes: </span>
+            <span class="text-sm text-gray-600">{{ product.sizesAvailable.join(', ') }}</span>
+          </div>
+          <div>
+            <span class="text-sm font-medium text-gray-700">Availability: </span>
+            <span [class.text-green-600]="product.stockQuantity > 0" 
+                  [class.text-red-600]="product.stockQuantity <= 0" 
+                  class="text-sm">
+              {{ product.stockQuantity > 0 ? 'In Stock (' + product.stockQuantity + ' available)' : 'Out of Stock' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

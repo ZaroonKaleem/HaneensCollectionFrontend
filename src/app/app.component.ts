@@ -4,6 +4,7 @@ import { HeaderComponent } from './Common/header/header.component';
 import { FooterComponent } from './Common/footer/footer.component';
 import { HomeComponent } from './Pages/home/home.component';
 import { CommonModule } from '@angular/common';
+import { WhatsappFloatIconComponent } from "./Common/whatsapp-float-icon/whatsapp-float-icon.component";
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ import { CommonModule } from '@angular/common';
     HeaderComponent,
     HomeComponent,
     FooterComponent,
-  ],
+    WhatsappFloatIconComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

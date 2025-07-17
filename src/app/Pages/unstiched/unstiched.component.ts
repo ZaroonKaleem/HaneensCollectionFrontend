@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductFiltersComponent } from '../products/product-filters/product-filters.component';
+import { UnstitchedSuitService } from '../../Services/unstitched-suit.service';
 
 @Component({
   selector: 'app-unstiched',
@@ -12,9 +13,26 @@ import { ProductFiltersComponent } from '../products/product-filters/product-fil
   templateUrl: './unstiched.component.html',
   styleUrl: './unstiched.component.css'
 })
-export class UnstichedComponent {
-ngOnInit() {
-    // this.filteredProducts = [...this.products]; // Initialize with all products
+export class UnstichedComponent implements OnInit {
+    unstitchedSuits: any[] = [];
+
+ constructor(private unstitchedSuitService: UnstitchedSuitService) {}
+
+  getPrimaryImage(suit: any): string {
+  const primary = suit.images?.find((img: any) => img.isPrimary);
+  return primary?.imageUrl || 'https://via.placeholder.com/300x400?text=No+Image';
+}
+
+
+  ngOnInit() {
+    this.unstitchedSuitService.getAllUnstitchedSuits().subscribe({
+      next: (res: any[]) => {
+        this.unstitchedSuits = res;
+      },
+      error: (err) => {
+        console.error('Failed to load products:', err);
+      }
+    });
   }
 
   applyFilters(filters: any) {

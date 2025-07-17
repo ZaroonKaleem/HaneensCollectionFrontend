@@ -27,3 +27,10 @@
 .custom-toast-error {
   background-color: #F44336; /* Red */
 }
+
+/* Global styles for consistent input look */
+.input,
+.form-input,
+.form-textarea {
+  @apply w-full p-3 border border-gray-300 rounded-md text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500;
+}

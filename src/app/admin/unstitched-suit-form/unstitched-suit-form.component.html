@@ -1,0 +1,90 @@
+<div class="w-full max-w-7xl mx-auto px-6 py-10 bg-white shadow-lg rounded-2xl">
+  <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">Upload Unstitched Suit</h2>
+
+  <form [formGroup]="suitForm" (ngSubmit)="onSubmit()" class="space-y-8">
+    <!-- General Details -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <input formControlName="name" placeholder="Name" class="form-input" />
+      <input formControlName="shortDescription" placeholder="Short Description" class="form-input" />
+      <input type="number" formControlName="originalPrice" placeholder="Original Price" class="form-input" />
+      <input type="number" formControlName="salePrice" placeholder="Sale Price" class="form-input" />
+      <input type="number" formControlName="salePercentage" placeholder="Sale %" class="form-input" />
+      <input type="number" formControlName="stockQuantity" placeholder="Stock Quantity" class="form-input" />
+      <input formControlName="material" placeholder="Material" class="form-input" />
+      <input formControlName="shippingInfo" placeholder="Shipping Info" class="form-input" />
+    </div>
+
+    <!-- Image Upload -->
+    <div>
+      <label class="block text-lg font-semibold text-gray-700 mb-2">Product Images</label>
+      <input type="file" (change)="onFileChange($event)" multiple class="block w-full text-sm text-gray-600" />
+      <div class="flex flex-wrap gap-3 mt-4">
+        <img *ngFor="let img of imageUrls" [src]="img" class="w-24 h-24 object-cover rounded-lg border hover:scale-105 transition" />
+      </div>
+    </div>
+
+    <!-- Sizes Available -->
+<div>
+  <label class="block text-lg font-semibold text-gray-700 mb-2">Sizes Available</label>
+  <div *ngFor="let size of sizesAvailable.controls; let i = index" class="flex gap-2 items-center mb-2">
+    <input [formControlName]="i" placeholder="Size" class="form-input w-full" />
+    <button type="button" (click)="removeSize(i)" class="text-red-500">Remove</button>
+  </div>
+  <button type="button" (click)="addSize()" class="text-blue-600 hover:underline">+ Add Size</button>
+</div>
+
+<!-- Color Options -->
+<div class="mt-4">
+  <label class="block text-lg font-semibold text-gray-700 mb-2">Color Options</label>
+  <div *ngFor="let color of colorOptions.controls; let j = index" class="flex gap-2 items-center mb-2">
+    <input [formControlName]="j" placeholder="Color" class="form-input w-full" />
+    <button type="button" (click)="removeColor(j)" class="text-red-500">Remove</button>
+  </div>
+  <button type="button" (click)="addColor()" class="text-blue-600 hover:underline">+ Add Color</button>
+</div>
+
+    <!-- Shirt Details -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 border-t pt-4 mb-4">Shirt Details</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" formGroupName="shirt">
+        <input formControlName="embroideredNeckline" placeholder="Embroidered Neckline" class="form-input" />
+        <input formControlName="digitalPrint" placeholder="Digital Print" class="form-input" />
+        <input formControlName="embroideredBorder" placeholder="Embroidered Border" class="form-input" />
+        <input formControlName="fabric" placeholder="Fabric" class="form-input" />
+        <input formControlName="color" placeholder="Color" class="form-input" />
+      </div>
+    </div>
+
+    <!-- Dupatta Details -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 border-t pt-4 mb-4">Dupatta Details</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" formGroupName="dupatta">
+        <input formControlName="digitalPrint" placeholder="Digital Print" class="form-input" />
+        <input formControlName="fabric" placeholder="Fabric" class="form-input" />
+        <input formControlName="color" placeholder="Color" class="form-input" />
+      </div>
+    </div>
+
+    <!-- Trouser Details -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 border-t pt-4 mb-4">Trouser Details</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" formGroupName="trouser">
+        <input formControlName="description" placeholder="Description" class="form-input" />
+        <input formControlName="fabric" placeholder="Fabric" class="form-input" />
+        <input formControlName="color" placeholder="Color" class="form-input" />
+      </div>
+    </div>
+
+    <!-- Note -->
+    <div>
+      <textarea formControlName="note" placeholder="Additional Notes (Optional)" rows="4" class="form-textarea w-full"></textarea>
+    </div>
+
+    <!-- Submit -->
+    <div class="pt-4">
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold px-6 py-3 rounded-lg transition">
+        Upload Product
+      </button>
+    </div>
+  </form>
+</div>

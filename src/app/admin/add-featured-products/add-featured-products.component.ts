@@ -35,7 +35,7 @@ export class AddFeaturedProductsComponent implements OnInit, OnDestroy {
       productId: [generateGuid(), Validators.required],
       name: ['', [Validators.required, Validators.maxLength(100)]],
       category: ['', [Validators.required, Validators.maxLength(50)]],
-      shortDescription: ['', Validators.maxLength(200)],
+      shortDescription: ['', Validators.maxLength(900)],
       originalPrice: [0, [Validators.required, Validators.min(0.01)]],
       salePercentage: [null, [Validators.min(0), Validators.max(100)]],
       salePrice: [{ value: null, disabled: true }, Validators.min(0)],

@@ -12,7 +12,7 @@
         <a [routerLink]="['/product', product.productId]" class="block relative overflow-hidden">
           <img [src]="product.images[0].imageUrl || 'assets/placeholder.jpg'"
                [alt]="product.images[0].altText || product.name"
-               class="w-full h-96 object-cover transition-all duration-300 group-hover:opacity-70 group-hover:scale-105"
+               class="w-full h-96 object-contain transition-all duration-300 group-hover:opacity-70 group-hover:scale-105"
                loading="lazy">
           
           <!-- Add to Cart Button (positioned absolutely within the clickable area) -->
@@ -34,7 +34,7 @@
         <div class="pb-4 pt-2 px-3">
           <h3 class="text-sm mb-1"> 
             <span class="font-semibold">{{ product.name }}</span> - 
-            <span class="font-normal">{{product.shortDescription }}</span>
+            <!-- <span class="font-normal">{{product.shortDescription }}</span> -->
           </h3>
 
           <!-- Price -->

@@ -113,6 +113,7 @@ export class UnstitchedSuitFormComponent {
   }
 
   onSubmit() {
+    console.log('Form Value:', this.suitForm.value);
     if (this.suitForm.valid && this.selectedFiles.length > 0) {
       const formValue = this.suitForm.value;
       const unstitchedSuit = {

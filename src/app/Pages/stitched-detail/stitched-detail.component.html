@@ -1,0 +1,96 @@
+<section class="bg-gray-50 min-h-screen py-16 px-6">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+    
+    <!-- LEFT: Product Images -->
+    <div>
+      <img [src]="product?.images?.[0]?.imageUrl || 'assets/no-image.jpg'" [alt]="product?.name"
+           class="w-full h-96 object-cover rounded-lg shadow-md mb-4" />
+      <div class="flex gap-2 overflow-x-auto">
+        <img *ngFor="let img of product?.images"
+             [src]="img.imageUrl"
+             class="w-20 h-20 object-cover rounded border cursor-pointer hover:border-primary transition" />
+      </div>
+    </div>
+
+    <!-- RIGHT: All Product Information + Details -->
+    <div class="flex flex-col">
+      <!-- Basic Info -->
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ product?.name }}</h1>
+        <p class="text-lg text-gray-500 mb-2">{{ product?.shortDescription }}</p>
+        <p class="text-sm text-gray-400 mb-4">Category: {{ product?.category }} ({{ product?.categoryType }})</p>
+
+        <!-- Price Section -->
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-2xl font-bold text-green-600">${{ product?.salePrice }}</span>
+          <span *ngIf="product?.salePercentage > 0" class="text-sm text-red-500 line-through">
+            ${{ product?.originalPrice }}
+          </span>
+          <span *ngIf="product?.salePercentage > 0" class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded">
+            -{{ product?.salePercentage }}%
+          </span>
+        </div>
+
+        <p class="text-gray-700 leading-relaxed mb-6">{{ product?.fullDescription }}</p>
+
+        <!-- Stock & Ratings -->
+        <p class="text-sm text-gray-500 mb-2">Stock: {{ product?.stockQuantity }} available</p>
+        <p class="text-sm text-gray-500 mb-4">
+          Rating: {{ product?.averageRating }} ★ ({{ product?.ratingCount }} reviews)
+        </p>
+
+        <!-- Material & Shipping -->
+        <p class="text-sm text-gray-600"><strong>Material:</strong> {{ product?.material }}</p>
+        <p class="text-sm text-gray-600"><strong>Shipping:</strong> {{ product?.shippingInfo }}</p>
+      </div>
+
+      <!-- Add to Cart Button -->
+      <button class="mt-6 bg-black text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition w-full md:w-1/2">
+        Add to Cart
+      </button>
+
+      <!-- Detailed Sections (Now on Right Side) -->
+      <div class="mt-10 p-6 rounded-lg">
+        <h2 class="text-2xl font-semibold mb-4 text-gray-900">Product Details</h2>
+        
+        <!-- Shirt Details -->
+        <div class="mb-6">
+          <h3 class="text-xl font-medium text-gray-800 mb-2">Shirt</h3>
+          <ul class="list-disc pl-6 text-gray-600">
+            <li><strong>Fabric:</strong> {{ product?.shirt?.fabric }}</li>
+            <li><strong>Color:</strong> {{ product?.shirt?.color }}</li>
+            <li><strong>Embroidered Neckline:</strong> {{ product?.shirt?.embroideredNeckline }}</li>
+            <li><strong>Embroidered Border:</strong> {{ product?.shirt?.embroideredBorder }}</li>
+            <li><strong>Digital Print:</strong> {{ product?.shirt?.digitalPrint }}</li>
+          </ul>
+        </div>
+
+        <!-- Dupatta Details -->
+        <div class="mb-6" *ngIf="product?.dupatta">
+          <h3 class="text-xl font-medium text-gray-800 mb-2">Dupatta</h3>
+          <ul class="list-disc pl-6 text-gray-600">
+            <li><strong>Fabric:</strong> {{ product?.dupatta?.fabric }}</li>
+            <li><strong>Color:</strong> {{ product?.dupatta?.color }}</li>
+            <li><strong>Digital Print:</strong> {{ product?.dupatta?.digitalPrint }}</li>
+          </ul>
+        </div>
+
+        <!-- Trouser Details -->
+        <div *ngIf="product?.trouser">
+          <h3 class="text-xl font-medium text-gray-800 mb-2">Trouser</h3>
+          <ul class="list-disc pl-6 text-gray-600">
+            <li><strong>Fabric:</strong> {{ product?.trouser?.fabric }}</li>
+            <li><strong>Color:</strong> {{ product?.trouser?.color }}</li>
+            <li><strong>Description:</strong> {{ product?.trouser?.description }}</li>
+          </ul>
+        </div>
+
+        <!-- Additional Info -->
+        <div *ngIf="product?.note" class="mt-6">
+          <h3 class="text-xl font-medium text-gray-800 mb-2">Note</h3>
+          <p class="text-gray-600">{{ product?.note }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

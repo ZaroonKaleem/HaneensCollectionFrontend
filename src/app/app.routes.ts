@@ -14,6 +14,8 @@ import { InstagramProductsEditorComponent } from './admin/instagram-products-edi
 import { AddFeaturedProductsComponent } from './admin/add-featured-products/add-featured-products.component';
 import { ProductDetailsComponent } from './Pages/home/featured-products/product-details/product-details.component';
 import { UnstitchedSuitFormComponent } from './admin/unstitched-suit-form/unstitched-suit-form.component';
+import { StitchedSuitFormComponent } from './admin/stitched-suit-form/stitched-suit-form.component';
+import { StitchedDetailComponent } from './Pages/stitched-detail/stitched-detail.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home | HC' },
@@ -28,6 +30,7 @@ export const routes: Routes = [
   { path: 'stitched', component: StitchedComponent, title: 'Stiched | HC' },
   { path: 'luxury', component: LuxuryComponent, title: 'Luxury | HC' },
   { path: 'Sale', component: SaleComponent, title: 'Sale | HC' },
+  { path: 'stitched/:id', component: StitchedDetailComponent},
 
  {
     path: 'administrator',
@@ -42,7 +45,8 @@ export const routes: Routes = [
           { path: 'hero-editor', component: HeroSectionEditorComponent, title: 'Hero Section Edit | HC' },
           { path: 'instagram-products-management', component: InstagramProductsEditorComponent, title: 'Instagram | HC' },
           { path: 'featured-products-management', component: AddFeaturedProductsComponent, title: 'Featured Products | HC' },
-          { path: 'unstitched-suit-management', component: UnstitchedSuitFormComponent, title: 'Unstitched Suits | HC'},
+          { path: 'unstitched-suit-management', component: UnstitchedSuitFormComponent, title: 'Unstitched Suits | HC' },
+          { path: 'stitched-suit-management', component: StitchedSuitFormComponent, title: 'Stitched Suits | HC' }
         ]
       }
     ]

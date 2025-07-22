@@ -23,7 +23,6 @@ export class UnstichedComponent implements OnInit {
   return primary?.imageUrl || 'https://via.placeholder.com/300x400?text=No+Image';
 }
 
-
   ngOnInit() {
     this.unstitchedSuitService.getAllUnstitchedSuits().subscribe({
       next: (res: any[]) => {

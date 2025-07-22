@@ -1,1 +1,84 @@
-<p>women works!</p>
+<!-- Main Product Showcase Section -->
+<section class="bg-gray-50 min-h-screen mb-8 py-16 px-6">
+  <!-- Hero -->
+  <div class="text-center mb-12">
+    <!-- Main Heading -->
+    <h1 class="text-4xl md:text-5xl font-serif font-bold text-primary mb-4">Haneen's Collection</h1>
+
+    <!-- Subheading -->
+    <p class="text-xl md:text-2xl font-light text-primary italic mb-6">Women's Collection</p>
+
+    <!-- Description -->
+    <p class="mt-4 text-lg text-gray-700 max-w-2xl mx-auto">
+      Discover our exquisite range of premium women's fashion, where timeless 
+      elegance meets contemporary style. Handcrafted with love for the sophisticated woman.
+    </p>
+  </div>
+
+  <!-- Category Filters -->
+  <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-10">
+    <!-- Filters Button (Left) - Full width on mobile, auto on larger screens -->
+    <div class="w-full sm:w-auto">
+      <app-product-filters (filtersApplied)="applyFilters()"></app-product-filters>
+    </div>
+    
+    <!-- Middle Section - Stacked on mobile, row on larger screens -->
+    <div class="flex flex-col xs:flex-row items-center justify-between gap-4 w-full sm:w-auto">
+      <!-- Product Count - Left on mobile, center on larger screens -->
+      <div class="text-gray-600 order-1 xs:order-none">
+        <span class="font-medium">{{ suits.length || 0 }}</span> suits
+      </div>
+      
+      <!-- Sort Dropdown - Full width on mobile, auto on larger screens -->
+      <div class="relative w-full xs:w-auto order-0 xs:order-none">
+        <select class="w-full xs:w-auto appearance-none bg-gray-200 text-gray-700 px-4 py-2 pr-8 rounded-sm hover:bg-gray-300 cursor-pointer text-sm sm:text-base">
+          <option value="best-selling">Best Selling</option>
+          <option value="a-z">Alphabetically, A-Z</option>
+          <option value="z-a">Alphabetically, Z-A</option>
+          <option value="price-high">Price, high to low</option>
+          <option value="price-low">Price, low to high</option>
+          <option value="date-old">Date, old to new</option>
+          <option value="date-new">Date, new to old</option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+    <div *ngIf="isLoading" class="text-center col-span-full">
+      <p class="text-lg text-gray-500">Loading suits...</p>
+    </div>
+
+    <div *ngFor="let product of suits" class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition overflow-hidden group">
+      <div class="relative">
+        <img 
+          [src]="product.images?.length > 0 ? product.images[0].imageUrl : 'assets/images/placeholder.png'" 
+          [alt]="product.images?.length > 0 ? product.images[0].altText : product.name" 
+          class="w-full h-60 object-cover group-hover:scale-105 transition-transform" 
+        />
+        <span *ngIf="product.isNew" class="absolute top-3 right-3 bg-black text-white text-xs px-2 py-1 rounded">NEW</span>
+        <span *ngIf="product.salePrice !== null" class="absolute top-3 left-3 bg-red-600 text-white text-xs px-2 py-1 rounded">SALE</span>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">{{ product.name }}</h3>
+        <p class="text-sm text-gray-500 mb-2">{{ product.shortDescription }}</p>
+        <div class="flex justify-between items-center mt-4">
+          <span class="text-lg font-semibold text-green-600">
+            {{ product.salePrice ? ('$' + product.salePrice) : ('$' + product.originalPrice) }}
+          </span>
+          <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">Buy</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading && suits.length === 0" class="text-center col-span-full">
+      <p class="text-lg text-gray-500">No suits found.</p>
+    </div>
+  </div>
+</section>

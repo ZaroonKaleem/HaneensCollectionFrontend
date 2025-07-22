@@ -5,3 +5,30 @@
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+.carousel-container {
+  display: flex;
+  gap: 1.5rem; /* 24px if you're using Tailwind gap-6 */
+}
+
+.carousel-item {
+  flex: 0 0 calc(25% - 18px); /* 4 items per row with gap accounted for */
+}
+
+@media (max-width: 1024px) {
+  .carousel-item {
+    flex: 0 0 calc(33.333% - 16px); /* 3 items per row on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-item {
+    flex: 0 0 calc(50% - 12px); /* 2 items per row on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-item {
+    flex: 0 0 100%; /* 1 item per row on very small screens */
+  }
+}

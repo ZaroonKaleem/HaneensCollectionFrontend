@@ -16,6 +16,8 @@ import { ProductDetailsComponent } from './Pages/home/featured-products/product-
 import { UnstitchedSuitFormComponent } from './admin/unstitched-suit-form/unstitched-suit-form.component';
 import { StitchedSuitFormComponent } from './admin/stitched-suit-form/stitched-suit-form.component';
 import { StitchedDetailComponent } from './Pages/stitched-detail/stitched-detail.component';
+import { WomenComponent } from './Pages/women/women.component';
+import { CheckoutComponent } from './Common/checkout/checkout.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home | HC' },
@@ -24,13 +26,14 @@ export const routes: Routes = [
     component: ProductDetailsComponent,
     title: 'Product Details'
   },
-  { path: 'women', component: ProductsComponent, title: 'Women | HC' },
+  { path: 'women', component: WomenComponent, title: 'Women | HC' },
   { path: 'pret', component: PretComponent, title: 'Pret | HC' },
   { path: 'unstitched', component: UnstichedComponent, title: 'unstitched | HC' },
   { path: 'stitched', component: StitchedComponent, title: 'Stiched | HC' },
   { path: 'luxury', component: LuxuryComponent, title: 'Luxury | HC' },
   { path: 'Sale', component: SaleComponent, title: 'Sale | HC' },
-  { path: 'stitched/:id', component: StitchedDetailComponent},
+  { path: 'stitched/:id', component: StitchedDetailComponent, title: 'Details | HC' },
+  { path: 'checkout', component: CheckoutComponent, title: 'Checkout | HC'},
 
  {
     path: 'administrator',

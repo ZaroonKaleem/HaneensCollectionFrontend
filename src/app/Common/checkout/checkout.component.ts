@@ -60,7 +60,7 @@ export class CheckoutComponent implements OnInit {
     CustomerPhone: this.checkoutForm.value.phone,
     ShippingAddress: this.checkoutForm.value.address,
     Items: this.cartItems.map(item => ({
-      ProductId: item.productId,  // Ensure this matches your Product model
+      ProductId: item.productId,
       ProductName: item.name,
       Price: item.price,
       Quantity: item.quantity,

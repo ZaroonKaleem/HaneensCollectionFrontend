@@ -1,0 +1,141 @@
+<div class="w-full max-w-6xl mx-auto bg-white shadow-lg rounded-2xl p-8">
+  <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-3">Upload Luxury Product</h2>
+
+  <form [formGroup]="luxuryForm" (ngSubmit)="onSubmit()" class="space-y-8">
+
+    <!-- Product Details -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <input formControlName="name" placeholder="Product Name" class="form-input" />
+        <div *ngIf="luxuryForm.get('name')?.invalid && luxuryForm.get('name')?.touched" class="text-red-500 text-sm">
+          Product name is required
+        </div>
+      </div>
+      <input formControlName="shortDescription" placeholder="Short Description" class="form-input" />
+      <input formControlName="category" value="Luxury" class="form-input bg-gray-100" readonly />
+    </div>
+
+    <!-- Luxury Specific Fields -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <input formControlName="designer" placeholder="Designer/Brand" class="form-input" />
+        <div *ngIf="luxuryForm.get('designer')?.invalid && luxuryForm.get('designer')?.touched" class="text-red-500 text-sm">
+          Designer is required
+        </div>
+      </div>
+      <input formControlName="collectionYear" type="number" placeholder="Collection Year" class="form-input" />
+      <input formControlName="authenticityCode" placeholder="Authenticity Code" class="form-input" />
+    </div>
+
+    <!-- Pricing -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <input type="number" formControlName="originalPrice" placeholder="Original Price" class="form-input" />
+        <div *ngIf="luxuryForm.get('originalPrice')?.invalid" class="text-red-500 text-sm">
+          Valid price required
+        </div>
+      </div>
+      <div>
+        <input type="number" formControlName="salePrice" placeholder="Sale Price" class="form-input" />
+        <div *ngIf="luxuryForm.get('salePrice')?.invalid" class="text-red-500 text-sm">
+          Valid price required
+        </div>
+      </div>
+      <input type="number" formControlName="salePercentage" placeholder="Sale %" class="form-input" />
+    </div>
+
+    <!-- Stock and Shipping -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <input type="number" formControlName="stockQuantity" placeholder="Stock Quantity" class="form-input" />
+        <div *ngIf="luxuryForm.get('stockQuantity')?.invalid" class="text-red-500 text-sm">
+          Valid quantity required
+        </div>
+      </div>
+      <div>
+        <input formControlName="material" placeholder="Material" class="form-input" />
+        <div *ngIf="luxuryForm.get('material')?.invalid && luxuryForm.get('material')?.touched" class="text-red-500 text-sm">
+          Material is required
+        </div>
+      </div>
+      <input formControlName="shippingInfo" placeholder="Shipping Information" class="form-input" />
+    </div>
+
+    <!-- Additional Info -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <input formControlName="originCountry" placeholder="Country of Origin" class="form-input" />
+      <textarea formControlName="craftsmanshipDetails" placeholder="Craftsmanship Details" rows="3" class="form-textarea"></textarea>
+      <textarea formControlName="note" placeholder="Additional Notes" rows="3" class="form-textarea"></textarea>
+    </div>
+
+    <!-- Luxury Status -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <label class="flex items-center space-x-2">
+        <input type="checkbox" formControlName="isLimitedEdition" class="form-checkbox" />
+        <span>Limited Edition</span>
+      </label>
+      <label class="flex items-center space-x-2">
+        <input type="checkbox" formControlName="isNew" class="form-checkbox" />
+        <span>New Arrival</span>
+      </label>
+      <label class="flex items-center space-x-2">
+        <input type="checkbox" formControlName="isExclusive" class="form-checkbox" />
+        <span>Exclusive</span>
+      </label>
+      <label class="flex items-center space-x-2">
+        <input type="checkbox" formControlName="hasCertificate" class="form-checkbox" />
+        <span>Includes Certificate</span>
+      </label>
+    </div>
+
+    <!-- Sizes -->
+    <div>
+      <label class="block text-lg font-semibold text-gray-700 mb-2">Sizes Available</label>
+      <div *ngFor="let size of sizesAvailable.controls; let i = index" class="flex gap-2 items-center mb-2">
+        <input [formControl]="getSizeControl(i)" placeholder="Size" class="form-input w-full" />
+        <button *ngIf="sizesAvailable.length > 1" type="button" (click)="removeSize(i)" class="text-red-500">
+          Remove
+        </button>
+      </div>
+      <button type="button" (click)="addSize()" class="text-blue-600 hover:underline">+ Add Size</button>
+      <div *ngIf="luxuryForm.get('sizesAvailable')?.invalid" class="text-red-500 text-sm">
+        At least one valid size required
+      </div>
+    </div>
+
+    <!-- Colors -->
+    <div>
+      <label class="block text-lg font-semibold text-gray-700 mb-2">Color Options</label>
+      <div *ngFor="let color of colorOptions.controls; let j = index" class="flex gap-2 items-center mb-2">
+        <input [formControl]="getColorControl(j)" placeholder="Color" class="form-input w-full" />
+        <button *ngIf="colorOptions.length > 1" type="button" (click)="removeColor(j)" class="text-red-500">
+          Remove
+        </button>
+      </div>
+      <button type="button" (click)="addColor()" class="text-blue-600 hover:underline">+ Add Color</button>
+      <div *ngIf="luxuryForm.get('colorOptions')?.invalid" class="text-red-500 text-sm">
+        At least one valid color required
+      </div>
+    </div>
+
+    <!-- Image Upload -->
+    <div>
+      <label class="block text-lg font-semibold text-gray-700 mb-2">Product Images</label>
+      <input type="file" (change)="onFileChange($event)" multiple accept="image/*" class="block w-full text-sm text-gray-600" />
+      <div *ngIf="selectedFiles.length === 0" class="text-red-500 text-sm mt-2">
+        At least one image is required
+      </div>
+      <div class="flex flex-wrap gap-3 mt-4">
+        <img *ngFor="let img of imageUrls" [src]="img" class="w-24 h-24 object-cover rounded-lg border hover:scale-105 transition" />
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="pt-4">
+      <button type="submit" [disabled]="luxuryForm.invalid || selectedFiles.length === 0" 
+        class="bg-primary hover:bg-secondary text-white text-lg font-semibold px-6 py-3 rounded-lg transition">
+        Upload Luxury Item
+      </button>
+    </div>
+  </form>
+</div>

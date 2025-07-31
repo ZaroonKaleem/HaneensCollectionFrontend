@@ -13,13 +13,16 @@ import { HeroSectionEditorComponent } from './admin/hero-section-editor/hero-sec
 import { InstagramProductsEditorComponent } from './admin/instagram-products-editor/instagram-products-editor.component';
 import { AddFeaturedProductsComponent } from './admin/add-featured-products/add-featured-products.component';
 import { ProductDetailsComponent } from './Pages/home/featured-products/product-details/product-details.component';
-import { UnstitchedSuitFormComponent } from './admin/unstitched-suit-form/unstitched-suit-form.component';
-import { StitchedSuitFormComponent } from './admin/stitched-suit-form/stitched-suit-form.component';
+import { UnstitchedSuitFormComponent } from './admin/unstitched-suit-management/unstitched-suit-form/unstitched-suit-form.component';
+import { StitchedSuitFormComponent } from './admin/stitiched-suit-management/stitched-suit-form/stitched-suit-form.component';
 import { StitchedDetailComponent } from './Pages/stitched-detail/stitched-detail.component';
 import { WomenComponent } from './Pages/women/women.component';
 import { CheckoutComponent } from './Common/checkout/checkout.component';
 import { PretSuitFormComponent } from './admin/pret-suit-form/pret-suit-form.component';
 import { LuxurySuitFormComponent } from './admin/luxury-suit-form/luxury-suit-form.component';
+import { StitichedSuitManagementComponent } from './admin/stitiched-suit-management/stitiched-suit-management.component';
+import { StitchedSuitEditComponent } from './admin/stitiched-suit-management/stitched-suit-edit/stitched-suit-edit.component';
+import { UnstitchedSuitManagementComponent } from './admin/unstitched-suit-management/unstitched-suit-management.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home | HC' },
@@ -50,8 +53,14 @@ export const routes: Routes = [
           { path: 'hero-editor', component: HeroSectionEditorComponent, title: 'Hero Section Edit | HC' },
           { path: 'instagram-products-management', component: InstagramProductsEditorComponent, title: 'Instagram | HC' },
           { path: 'featured-products-management', component: AddFeaturedProductsComponent, title: 'Featured Products | HC' },
-          { path: 'unstitched-suit-management', component: UnstitchedSuitFormComponent, title: 'Unstitched Suits | HC' },
-          { path: 'stitched-suit-management', component: StitchedSuitFormComponent, title: 'Stitched Suits | HC' },
+          
+          { path: 'unstitched-suit-management', component: UnstitchedSuitManagementComponent, title: 'Unstitched Suits | HC' },
+          { path: 'unstitched-suit/add', component: UnstitchedSuitFormComponent, title: 'Add Unstitched Suit | HC'},
+
+          { path: 'stitched-suit-management', component: StitichedSuitManagementComponent, title: 'Stitched Suits | HC' },
+          { path: 'stitched-suit/add', component: StitchedSuitFormComponent, title: 'Add Stitched Suits | HC' },
+          { path: 'stitched-suit/edit/:id', component: StitchedSuitEditComponent, title: 'Edit Stitched Suits | HC'},
+          
           { path: 'pret-suit-management', component: PretSuitFormComponent, title: 'Pret Suits | HC' },
           { path: 'luxury-suit-management', component: LuxurySuitFormComponent, title: 'Luxury Suits | HC' }
         ]

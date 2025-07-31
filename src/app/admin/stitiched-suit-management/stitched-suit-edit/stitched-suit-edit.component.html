@@ -1,0 +1,216 @@
+<div class="container mx-auto p-6">
+  <!-- Header with title and back button -->
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">Edit Suit</h2>
+    <button 
+      (click)="goBack()" 
+      class="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+      </svg>
+      Back
+    </button>
+  </div>
+
+  <form [formGroup]="stitchedSuitForm" (ngSubmit)="submitForm()" class="space-y-6 p-6 bg-white rounded shadow-md">
+
+    <!-- Basic Product Info -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Product Name*</label>
+        <input formControlName="name" type="text" class="form-input w-full" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Category*</label>
+        <input formControlName="category" type="text" class="form-input w-full" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Short Description</label>
+        <input formControlName="shortDescription" type="text" class="form-input w-full" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Original Price*</label>
+        <input formControlName="originalPrice" type="number" min="0.01" step="0.01" class="form-input w-full" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Sale Price</label>
+        <input formControlName="salePrice" type="number" min="0" step="0.01" class="form-input w-full" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Sale Percentage</label>
+        <input formControlName="salePercentage" type="number" min="0" max="100" class="form-input w-full" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Stock Quantity</label>
+        <input formControlName="stockQuantity" type="number" min="0" class="form-input w-full" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Material</label>
+        <input formControlName="material" type="text" class="form-input w-full" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Shipping Info</label>
+        <input formControlName="shippingInfo" type="text" class="form-input w-full" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Category Type</label>
+        <input formControlName="categoryType" type="text" class="form-input w-full" />
+      </div>
+    </div>
+
+    <!-- Flags -->
+    <div class="flex items-center gap-6">
+      <label class="inline-flex items-center space-x-2">
+        <input type="checkbox" formControlName="isNew" class="form-checkbox rounded text-blue-600" />
+        <span class="text-gray-700">Is New?</span>
+      </label>
+      <label class="inline-flex items-center space-x-2">
+        <input type="checkbox" formControlName="isExclusive" class="form-checkbox rounded text-blue-600" />
+        <span class="text-gray-700">Is Exclusive?</span>
+      </label>
+    </div>
+
+    <!-- Sizes -->
+    <div>
+      <label class="block font-semibold text-gray-700 mb-1">Sizes Available</label>
+      <div class="flex gap-2 mb-2">
+        <input #sizeInput type="text" placeholder="Add size" class="form-input flex-1" />
+        <button type="button" (click)="addSize(sizeInput.value); sizeInput.value=''" 
+                class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500 transition">
+          Add
+        </button>
+      </div>
+      <div class="flex gap-2 flex-wrap">
+        <span *ngFor="let size of sizesAvailable.controls; let i = index" 
+              class="bg-gray-200 text-sm px-3 py-1 rounded flex items-center">
+          {{ size.value }}
+          <button type="button" (click)="sizesAvailable.removeAt(i)" class="ml-2 text-red-500 hover:text-red-700">
+            ×
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <!-- Color Options -->
+    <div>
+      <label class="block font-semibold text-gray-700 mb-1">Color Options</label>
+      <div class="flex gap-2 mb-2">
+        <input #colorInput type="text" placeholder="Add color" class="form-input flex-1" />
+        <button type="button" (click)="addColor(colorInput.value); colorInput.value=''" 
+                class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500 transition">
+          Add
+        </button>
+      </div>
+      <div class="flex gap-2 flex-wrap">
+        <span *ngFor="let color of colorOptions.controls; let i = index" 
+              class="text-sm px-3 py-1 rounded flex items-center"
+              [style.backgroundColor]="color.value" 
+              [style.color]="getContrastColor(color.value)">
+          {{ color.value }}
+          <button type="button" (click)="colorOptions.removeAt(i)" 
+                  class="ml-2" [style.color]="getContrastColor(color.value) + '!important'">
+            ×
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <!-- Image Upload -->
+    <div>
+      <label class="block font-semibold text-gray-700 mb-1">Product Images</label>
+      <input type="file" (change)="handleImageUpload($event)" multiple 
+             accept="image/*" class="form-input w-full" />
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+        <div *ngFor="let img of images.controls; let i = index" class="relative border rounded overflow-hidden group">
+          <img [src]="img.value.imageUrl" alt="Product image" class="w-full h-32 object-cover" />
+          <div class="p-2 text-xs text-gray-600 truncate">{{ img.value.mimeType }}</div>
+          <button type="button" (click)="images.removeAt(i)"
+                  class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+            ×
+          </button>
+          <div *ngIf="img.value.isPrimary" class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
+            Primary
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shirt Section -->
+    <div formGroupName="shirt" class="border-t pt-4 mt-4">
+      <h3 class="text-lg font-semibold text-gray-800 mb-2">Shirt Details</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Embroidered Neckline</label>
+          <input formControlName="embroideredNeckline" class="form-input w-full" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Digital Print</label>
+          <input formControlName="digitalPrint" class="form-input w-full" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Embroidered Border</label>
+          <input formControlName="embroideredBorder" class="form-input w-full" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Fabric</label>
+          <input formControlName="fabric" class="form-input w-full" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Color</label>
+          <input formControlName="color" class="form-input w-full" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Dupatta Section -->
+    <div formGroupName="dupatta" class="border-t pt-4 mt-4">
+      <h3 class="text-lg font-semibold text-gray-800 mb-2">Dupatta Details</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Digital Print</label>
+          <input formControlName="digitalPrint" class="form-input w-full" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Fabric</label>
+          <input formControlName="fabric" class="form-input w-full" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Color</label>
+          <input formControlName="color" class="form-input w-full" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Trouser Section -->
+    <div formGroupName="trouser" class="border-t pt-4 mt-4">
+      <h3 class="text-lg font-semibold text-gray-800 mb-2">Trouser Details</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+          <input formControlName="description" class="form-input w-full" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Fabric</label>
+          <input formControlName="fabric" class="form-input w-full" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Color</label>
+          <input formControlName="color" class="form-input w-full" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Note -->
+    <div>
+      <label class="block font-semibold text-gray-700 mb-1">Additional Notes</label>
+      <textarea formControlName="note" rows="4" class="form-textarea w-full"></textarea>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="w-full py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-500 transition">
+      Update Product
+    </button>
+  </form>
+</div>

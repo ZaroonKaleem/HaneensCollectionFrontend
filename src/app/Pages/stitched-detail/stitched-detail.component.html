@@ -2,15 +2,21 @@
   <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
     
     <!-- LEFT: Product Images -->
-    <div>
-      <img [src]="product?.images?.[0]?.imageUrl || 'assets/no-image.jpg'" [alt]="product?.name"
-           class="w-full h-96 object-cover rounded-lg shadow-md mb-4" />
-      <div class="flex gap-2 overflow-x-auto">
-        <img *ngFor="let img of product?.images"
-             [src]="img.imageUrl"
-             class="w-20 h-20 object-cover rounded border cursor-pointer hover:border-primary transition" />
-      </div>
-    </div>
+   <div>
+  <!-- Main Image Display -->
+  <img [src]="selectedImage || product?.images?.[0]?.imageUrl || 'assets/no-image.jpg'" 
+       [alt]="product?.name"
+       class="w-full h-[900px] object-contain rounded-lg" />
+  
+  <!-- Thumbnail Gallery -->
+  <div class="flex gap-2 border-t border-t-2-black overflow-x-auto py-2">
+    <img *ngFor="let img of product?.images"
+         [src]="img.imageUrl"
+         (click)="selectImage(img.imageUrl)"
+         [class.border-primary]="selectedImage === img.imageUrl"
+         class="w-20 h-20 object-contain rounded cursor-pointer hover:border-primary transition" />
+  </div>
+</div>
 
     <!-- RIGHT: All Product Information + Details -->
     <div class="flex flex-col">
@@ -18,13 +24,13 @@
       <div>
         <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ product?.name }}</h1>
         <p class="text-lg text-gray-500 mb-2">{{ product?.shortDescription }}</p>
-        <p class="text-sm text-gray-400 mb-4">Category: {{ product?.category }} ({{ product?.categoryType }})</p>
+        <p class="text-sm text-gray-800 mb-4">Category: {{ product?.category }}</p>
 
         <!-- Price Section -->
         <div class="flex items-center gap-3 mb-4">
-          <span class="text-2xl font-bold text-green-600">${{ product?.salePrice }}</span>
+          <span class="text-2xl font-bold text-green-600">Rs. {{ product?.salePrice }}</span>
           <span *ngIf="product?.salePercentage > 0" class="text-sm text-red-500 line-through">
-            ${{ product?.originalPrice }}
+            Rs. {{ product?.originalPrice }}
           </span>
           <span *ngIf="product?.salePercentage > 0" class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded">
             -{{ product?.salePercentage }}%
@@ -60,30 +66,51 @@
             <li><strong>Fabric:</strong> {{ product?.shirt?.fabric }}</li>
             <li><strong>Color:</strong> {{ product?.shirt?.color }}</li>
             <li><strong>Embroidered Neckline:</strong> {{ product?.shirt?.embroideredNeckline }}</li>
-            <li><strong>Embroidered Border:</strong> {{ product?.shirt?.embroideredBorder }}</li>
-            <li><strong>Digital Print:</strong> {{ product?.shirt?.digitalPrint }}</li>
+           <!-- For Shirt Details -->
+<li *ngIf="product?.shirt?.embroideredBorder">
+  <strong>Embroidered Border:</strong> {{ product.shirt.embroideredBorder }}
+</li>
+<li *ngIf="product?.shirt?.digitalPrint">
+  <strong>Digital Print:</strong> {{ product.shirt.digitalPrint }}
+</li>
+
+<!-- For Dupatta Details -->
+<li *ngIf="product?.dupatta?.digitalPrint">
+  <strong>Dupatta Digital Print:</strong> {{ product.dupatta.digitalPrint }}
+</li>
+<li *ngIf="product?.dupatta?.fabric">
+  <strong>Dupatta Fabric:</strong> {{ product.dupatta.fabric }}
+</li>
+
+<!-- For Trouser Details -->
+<li *ngIf="product?.trouser?.description">
+  <strong>Trouser Description:</strong> {{ product.trouser.description }}
+</li>
+<li *ngIf="product?.trouser?.fabric">
+  <strong>Trouser Fabric:</strong> {{ product.trouser.fabric }}
+</li>
           </ul>
         </div>
 
         <!-- Dupatta Details -->
-        <div class="mb-6" *ngIf="product?.dupatta">
+        <!-- <div class="mb-6" *ngIf="product?.dupatta">
           <h3 class="text-xl font-medium text-gray-800 mb-2">Dupatta</h3>
           <ul class="list-unstyled pl-6 text-gray-600">
             <li><strong>Fabric:</strong> {{ product?.dupatta?.fabric }}</li>
             <li><strong>Color:</strong> {{ product?.dupatta?.color }}</li>
             <li><strong>Digital Print:</strong> {{ product?.dupatta?.digitalPrint }}</li>
           </ul>
-        </div>
+        </div> -->
 
         <!-- Trouser Details -->
-        <div *ngIf="product?.trouser">
+        <!-- <div *ngIf="product?.trouser">
           <h3 class="text-xl font-medium text-gray-800 mb-2">Trouser</h3>
           <ul class="list-unstyled pl-6 text-gray-600">
             <li><strong>Fabric:</strong> {{ product?.trouser?.fabric }}</li>
             <li><strong>Color:</strong> {{ product?.trouser?.color }}</li>
             <li><strong>Description:</strong> {{ product?.trouser?.description }}</li>
           </ul>
-        </div>
+        </div> -->
 
         <!-- Additional Info -->
         <div *ngIf="product?.note" class="mt-6">

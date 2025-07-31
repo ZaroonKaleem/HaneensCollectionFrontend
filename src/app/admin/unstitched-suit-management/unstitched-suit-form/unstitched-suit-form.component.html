@@ -1,0 +1,247 @@
+<div class="w-full max-w-7xl mx-auto px-6 py-10 bg-white shadow-lg rounded-2xl">
+  <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">Upload Unstitched Suit</h2>
+
+  <form [formGroup]="suitForm" (ngSubmit)="onSubmit()" class="space-y-8">
+    <!-- General Details -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Product Name -->
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Product Name*</label>
+        <input formControlName="name" type="text" placeholder="Product Name" class="form-input w-full" />
+        <div *ngIf="suitForm.get('name')?.invalid && suitForm.get('name')?.touched" class="text-red-500 text-sm mt-1">
+          Product name is required (minimum 3 characters)
+        </div>
+      </div>
+
+      <!-- Short Description -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Short Description*</label>
+        <input formControlName="shortDescription" type="text" placeholder="Short description"
+          class="form-input w-full" />
+        <div *ngIf="suitForm.get('shortDescription')?.invalid && suitForm.get('shortDescription')?.touched" 
+             class="text-red-500 text-sm mt-1">
+          Description is required (minimum 10 characters)
+        </div>
+      </div>
+
+      <!-- Material -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Material*</label>
+        <input formControlName="material" type="text" placeholder="Material" class="form-input w-full" />
+        <div *ngIf="suitForm.get('material')?.invalid && suitForm.get('material')?.touched" 
+             class="text-red-500 text-sm mt-1">
+          Material is required
+        </div>
+      </div>
+
+      <!-- Stock Quantity -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Stock Quantity*</label>
+        <input formControlName="stockQuantity" type="number" min="0" placeholder="Stock Quantity" 
+               class="form-input w-full" />
+        <div *ngIf="suitForm.get('stockQuantity')?.invalid && suitForm.get('stockQuantity')?.touched" 
+             class="text-red-500 text-sm mt-1">
+          Valid stock quantity is required
+        </div>
+      </div>
+
+      <!-- Shipping Info -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Shipping Info*</label>
+        <input formControlName="shippingInfo" type="text" placeholder="Shipping Info" class="form-input w-full" />
+        <div *ngIf="suitForm.get('shippingInfo')?.invalid && suitForm.get('shippingInfo')?.touched" 
+             class="text-red-500 text-sm mt-1">
+          Shipping info is required
+        </div>
+      </div>
+
+      <!-- Pricing Section -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 col-span-3">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Original Price*</label>
+          <input formControlName="originalPrice" type="number" min="0" placeholder="Original Price"
+            class="form-input w-full" />
+          <div *ngIf="suitForm.get('originalPrice')?.invalid && suitForm.get('originalPrice')?.touched" 
+               class="text-red-500 text-sm mt-1">
+            Valid original price is required
+          </div>
+        </div>
+        <div class="relative">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Sale Percentage</label>
+          <div class="relative">
+            <input formControlName="salePercentage" type="number" min="0" max="100" placeholder="Sale Percentage"
+              class="form-input w-full pr-8" />
+            <span class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">%</span>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Sale Price</label>
+          <input formControlName="salePrice" type="number" placeholder="Sale Price"
+            class="form-input w-full bg-gray-100" readonly />
+        </div>
+      </div>
+    </div>
+
+    <!-- Rating Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Average Rating</label>
+        <input formControlName="averageRating" type="number" min="0" max="5" step="0.1" placeholder="Average Rating"
+          class="form-input w-full" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Rating Count</label>
+        <input formControlName="ratingCount" type="number" min="0" placeholder="Rating Count"
+          class="form-input w-full" />
+      </div>
+    </div>
+
+    <!-- Sizes Available -->
+    <div>
+      <label class="block font-semibold mb-1">Sizes Available*</label>
+      <div *ngIf="sizesAvailable.length === 0 && suitForm.get('sizesAvailable')?.touched" 
+           class="text-red-500 text-sm mb-2">
+        At least one size is required
+      </div>
+      <div class="flex gap-2 mb-2">
+        <input #sizeInput type="text" placeholder="Add size" class="form-input" />
+        <button type="button" (click)="addSize(sizeInput.value); sizeInput.value=''"
+          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500">Add</button>
+      </div>
+      <div class="flex gap-2 flex-wrap">
+        <span *ngFor="let size of sizesAvailable.controls; let i = index" 
+              class="bg-gray-200 text-sm px-3 py-1 rounded flex items-center">
+          {{ size.value }}
+          <button type="button" (click)="removeSize(i)" class="ml-2 text-red-500 hover:text-red-700">
+            ×
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <!-- Color Options -->
+    <div>
+      <label class="block font-semibold mb-1">Color Options*</label>
+      <div *ngIf="colorOptions.length === 0 && suitForm.get('colorOptions')?.touched" 
+           class="text-red-500 text-sm mb-2">
+        At least one color is required
+      </div>
+      <div class="flex gap-2 mb-2">
+        <input #colorInput type="text" placeholder="Add color" class="form-input" />
+        <button type="button" (click)="addColor(colorInput.value); colorInput.value=''"
+          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500">Add</button>
+      </div>
+      <div class="flex gap-2 flex-wrap">
+        <span *ngFor="let color of colorOptions.controls; let i = index" 
+              class="bg-gray-200 text-sm px-3 py-1 rounded flex items-center">
+          {{ color.value }}
+          <button type="button" (click)="removeColor(i)" class="ml-2 text-red-500 hover:text-red-700">
+            ×
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <!-- Image Upload -->
+    <!-- Previous form sections remain the same until the image upload section -->
+
+<!-- Image Upload -->
+<div>
+  <label class="block font-semibold mb-1">Upload Images*</label>
+  <div *ngIf="(images.length === 0 && selectedFiles.length === 0) && suitForm.get('images')?.touched" 
+       class="text-red-500 text-sm mb-2">
+    At least one image is required
+  </div>
+  
+  <!-- Image upload input -->
+  <div class="flex items-center gap-4 mb-4">
+    <input type="file" (change)="onFileChange($event)" multiple accept="image/*" 
+           class="form-input w-full max-w-md" />
+    <button type="button" (click)="handleImageUpload()" 
+            *ngIf="selectedFiles.length > 0"
+            class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-500">
+      Upload {{selectedFiles.length}} Images
+    </button>
+  </div>
+
+  <!-- Uploaded images -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+    <div *ngFor="let img of images.controls; let i = index" 
+         class="relative border rounded overflow-hidden group">
+      <img [src]="img.value.imageUrl" alt="Uploaded image" class="w-full h-32 object-cover" />
+      <div class="p-2 text-xs text-gray-600 truncate">{{ img.value.altText }}</div>
+      <button type="button" (click)="removeImage(i)"
+              class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+        ×
+      </button>
+      <div *ngIf="img.value.isPrimary" class="absolute top-1 left-1 bg-blue-500 text-white text-xs px-2 py-1 rounded">
+        Primary
+      </div>
+    </div>
+  </div>
+
+  <!-- Image previews (before upload) -->
+  <div *ngIf="selectedFiles.length > 0" class="mt-4">
+    <h4 class="text-sm font-medium text-gray-700 mb-2">Selected for upload ({{selectedFiles.length}}):</h4>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div *ngFor="let preview of imagePreviews; let i = index" 
+           class="relative border rounded overflow-hidden group">
+        <img [src]="preview" alt="Image preview" class="w-full h-32 object-cover" />
+        <button type="button" (click)="removeImage(i)"
+                class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+          ×
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Rest of the form remains the same -->
+
+    <!-- Shirt Details -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 border-t pt-4 mb-4">Shirt Details</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" formGroupName="shirt">
+        <input formControlName="embroideredNeckline" placeholder="Embroidered Neckline" class="form-input" />
+        <input formControlName="digitalPrint" placeholder="Digital Print" class="form-input" />
+        <input formControlName="embroideredBorder" placeholder="Embroidered Border" class="form-input" />
+        <input formControlName="fabric" placeholder="Fabric" class="form-input" />
+        <input formControlName="color" placeholder="Color" class="form-input" />
+      </div>
+    </div>
+
+    <!-- Dupatta Details -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 border-t pt-4 mb-4">Dupatta Details</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" formGroupName="dupatta">
+        <input formControlName="digitalPrint" placeholder="Digital Print" class="form-input" />
+        <input formControlName="fabric" placeholder="Fabric" class="form-input" />
+        <input formControlName="color" placeholder="Color" class="form-input" />
+      </div>
+    </div>
+
+    <!-- Trouser Details -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 border-t pt-4 mb-4">Trouser Details</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" formGroupName="trouser">
+        <input formControlName="description" placeholder="Description" class="form-input" />
+        <input formControlName="fabric" placeholder="Fabric" class="form-input" />
+        <input formControlName="color" placeholder="Color" class="form-input" />
+      </div>
+    </div>
+
+    <!-- Note -->
+    <div>
+      <textarea formControlName="note" placeholder="Additional Notes (Optional)" rows="4"
+        class="form-textarea w-full"></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="pt-4">
+      <button type="submit" [disabled]="isSubmitting"
+        class="w-full py-3 bg-primary/80 text-white font-semibold rounded cursor-pointer hover:bg-primary transition disabled:opacity-50 disabled:cursor-not-allowed">
+        {{ isSubmitting ? 'Uploading...' : 'Upload Suit' }}
+      </button>
+    </div>
+  </form>
+</div>

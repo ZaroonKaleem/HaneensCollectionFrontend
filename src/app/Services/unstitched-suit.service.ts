@@ -17,5 +17,18 @@ constructor(private http: HttpClient) {}
 
   getAllUnstitchedSuits(): Observable<any[]> {
   return this.http.get<any[]>(this.apiUrl);
-}
+  }
+  
+  updateUnstitchedSuit(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, data);
+  }
+
+  /**
+   * Delete an unstitched suit
+   * @param id The ID of the suit to delete
+   */
+  deleteUnstitchedSuit(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
 }

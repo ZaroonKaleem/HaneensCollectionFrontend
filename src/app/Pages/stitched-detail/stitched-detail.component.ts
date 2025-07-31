@@ -11,7 +11,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './stitched-detail.component.css'
 })
 export class StitchedDetailComponent {
- product: any;
+  product: any;
+  selectedImage: string | null = null;
 
   constructor(private route: ActivatedRoute, private sttichedService: StitchedSuitService) {}
 
@@ -21,4 +22,8 @@ export class StitchedDetailComponent {
       this.product = data;
     });
   }
+
+  selectImage(imageUrl: string) {
+  this.selectedImage = imageUrl;
+}
 }

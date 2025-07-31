@@ -1,0 +1,202 @@
+<div class="container mx-auto p-6">
+  <!-- Header with title and back button -->
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">Add New Suit</h2>
+    <button (click)="goBack()"
+      class="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd"
+          d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+          clip-rule="evenodd" />
+      </svg>
+      Back
+    </button>
+  </div>
+
+  <form [formGroup]="stitchedSuitForm" (ngSubmit)="submitForm()" class="space-y-6 p-6 bg-white rounded shadow-md">
+
+    <!-- Basic Product Info -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="mb-4">
+        <label for="productName" class="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+        <input id="productName" formControlName="name" type="text" placeholder="Product Name"
+          class="form-input w-full" />
+      </div>
+
+      <div class="mb-4">
+        <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+        <select formControlName="category" class="form-input w-full">
+          <option value="" disabled selected>Select Category</option>
+          <option value="1-piece">1-piece</option>
+          <option value="2-piece">2-piece</option>
+          <option value="3-piece">3-piece</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label for="shortDescription" class="block text-sm font-medium text-gray-700 mb-1">Short Description</label>
+        <input formControlName="shortDescription" type="text" placeholder="Short Description"
+          class="form-input w-full" />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label>Original Price</label>
+          <input formControlName="originalPrice" type="number" min="0" placeholder="Original Price"
+            class="form-input w-full" />
+        </div>
+        <div class="relative">
+          <label>Sale Percentage</label>
+          <div class="relative">
+            <input formControlName="salePercentage" type="number" placeholder="Sale Percentage"
+              class="form-input w-full pr-8" />
+            <span class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">%</span>
+          </div>
+        </div>
+        <div>
+          <label>Sale Price</label>
+          <input formControlName="salePrice" type="number" placeholder="Sale Price"
+            class="form-input w-full bg-gray-100" readonly />
+        </div>
+      </div>
+
+      <!-- Full-width 4-column row -->
+      <div class="w-full grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+        <!-- Stock Quantity -->
+        <div class="w-full">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Stock Quantity</label>
+          <input formControlName="stockQuantity" type="number" placeholder="Stock Quantity" class="form-input w-full" />
+        </div>
+
+        <!-- Average Rating -->
+        <div class="w-full">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Average Rating</label>
+          <input formControlName="averageRating" type="number" min="0" max="5" step="0.1" placeholder="Average Rating"
+            class="form-input w-full" />
+        </div>
+
+        <!-- Rating Count -->
+        <div class="w-full">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Rating Count</label>
+          <input formControlName="ratingCount" type="number" min="0" placeholder="Rating Count"
+            class="form-input w-full" />
+        </div>
+
+        <!-- Shipping Info -->
+        <div class="w-full">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Shipping Info</label>
+          <input formControlName="shippingInfo" type="text" placeholder="Shipping Info" class="form-input w-full" />
+        </div>
+      </div>
+
+      <!-- Full-width single inputs -->
+      <div class="w-full mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Material</label>
+        <input formControlName="material" type="text" placeholder="Material" class="form-input w-full" />
+      </div>
+
+      <div class="w-full mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Category Type</label>
+        <input formControlName="categoryType" type="text" placeholder="Category Type" class="form-input w-full" />
+      </div>
+      <!-- Flags -->
+      <div class="flex items-center gap-8">
+        <label class="inline-flex items-center space-x-2">
+          <input type="checkbox" formControlName="isNew" class="form-checkbox" />
+          <span>Is New?</span>
+        </label>
+        <label class="inline-flex items-center space-x-2">
+          <input type="checkbox" formControlName="isExclusive" class="form-checkbox" />
+          <span>Is Exclusive?</span>
+        </label>
+      </div>
+    </div>
+
+
+
+    <!-- Sizes -->
+    <div>
+      <label class="block font-semibold mb-1">Sizes Available</label>
+      <div class="flex gap-2 mb-2">
+        <input #sizeInput type="text" placeholder="Add size" class="form-input" />
+        <button type="button" (click)="addSize(sizeInput.value); sizeInput.value=''"
+          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500">Add</button>
+      </div>
+      <div class="flex gap-2 flex-wrap">
+        <span *ngFor="let size of sizesAvailable.controls" class="bg-gray-200 text-sm px-3 py-1 rounded">{{ size.value
+          }}</span>
+      </div>
+    </div>
+
+    <!-- Color Options -->
+    <div>
+      <label class="block font-semibold mb-1">Color Options</label>
+      <div class="flex gap-2 mb-2">
+        <input #colorInput type="text" placeholder="Add color" class="form-input" />
+        <button type="button" (click)="addColor(colorInput.value); colorInput.value=''"
+          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500">Add</button>
+      </div>
+      <div class="flex gap-2 flex-wrap">
+        <span *ngFor="let color of colorOptions.controls" class="bg-gray-200 text-sm px-3 py-1 rounded">{{ color.value
+          }}</span>
+      </div>
+    </div>
+
+    <!-- Image Upload -->
+    <div>
+      <label class="block font-semibold mb-1">Upload Images</label>
+      <input type="file" (change)="handleImageUpload($event)" multiple class="form-input w-full" />
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+        <div *ngFor="let img of images.controls" class="relative border rounded overflow-hidden">
+          <img [src]="img.value.imageUrl" alt="Uploaded image" class="w-full h-32 object-cover" />
+          <div class="p-2 text-xs text-gray-600">{{ img.value.mimeType }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shirt Section -->
+    <div formGroupName="shirt">
+      <h3 class="text-lg font-semibold mb-2 mt-4">Shirt</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <input formControlName="embroideredNeckline" placeholder="Embroidered Neckline" class="form-input" />
+        <input formControlName="digitalPrint" placeholder="Digital Print" class="form-input" />
+        <input formControlName="embroideredBorder" placeholder="Embroidered Border" class="form-input" />
+        <input formControlName="fabric" placeholder="Shirt Fabric" class="form-input" />
+        <input formControlName="color" placeholder="Shirt Color" class="form-input" />
+      </div>
+    </div>
+
+    <!-- Dupatta Section -->
+    <div formGroupName="dupatta">
+      <h3 class="text-lg font-semibold mb-2 mt-4">Dupatta</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <input formControlName="digitalPrint" placeholder="Dupatta Print" class="form-input" />
+        <input formControlName="fabric" placeholder="Dupatta Fabric" class="form-input" />
+        <input formControlName="color" placeholder="Dupatta Color" class="form-input" />
+      </div>
+    </div>
+
+    <!-- Trouser Section -->
+    <div formGroupName="trouser">
+      <h3 class="text-lg font-semibold mb-2 mt-4">Trouser</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <input formControlName="description" placeholder="Trouser Description" class="form-input" />
+        <input formControlName="fabric" placeholder="Trouser Fabric" class="form-input" />
+        <input formControlName="color" placeholder="Trouser Color" class="form-input" />
+      </div>
+    </div>
+
+    <!-- Note -->
+    <div>
+      <label class="block font-semibold mb-1">Note</label>
+      <textarea formControlName="note" rows="4" placeholder="Any additional note..."
+        class="form-textarea w-full"></textarea>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit"
+      class="w-full py-3 bg-primary/80 text-white font-semibold rounded cursor-pointer hover:bg-primary transition">
+      Upload Suit
+    </button>
+  </form>
+</div>

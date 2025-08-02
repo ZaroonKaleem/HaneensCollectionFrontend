@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { UnstitchedSuitService } from '../../../Services/unstitched-suit.service';
 import { ImageUploadService } from '../../../Services/image-upload.service';
 import { forkJoin, map } from 'rxjs';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-unstitched-suit-form',
@@ -28,7 +29,8 @@ export class UnstitchedSuitFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private unstitchedSuitService: UnstitchedSuitService,
-    private imageUploadService: ImageUploadService
+    private imageUploadService: ImageUploadService,
+    private location : Location
   ) {
     this.suitForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -191,6 +193,10 @@ export class UnstitchedSuitFormComponent implements OnInit {
         alert('Failed to upload some images. Please try again.');
       }
     });
+  }
+
+    goBack(): void {
+  this.location.back();
   }
 
   // Form submission

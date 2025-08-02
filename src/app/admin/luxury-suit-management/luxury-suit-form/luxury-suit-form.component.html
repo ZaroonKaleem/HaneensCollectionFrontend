@@ -1,0 +1,274 @@
+<div class="w-full max-w-7xl mx-auto px-6 py-10 bg-white shadow-lg rounded-2xl">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">Add New Luxury Product</h2>
+    <button (click)="goBack()"
+      class="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd"
+          d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+          clip-rule="evenodd" />
+      </svg>
+      Back
+    </button>
+  </div>
+
+  <form [formGroup]="luxuryForm" (ngSubmit)="onSubmit()" class="space-y-8">
+    <!-- Product Details -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Product Name -->
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Product Name*</label>
+        <input formControlName="name" type="text" placeholder="Product Name" class="form-input w-full" />
+        <div *ngIf="luxuryForm.get('name')?.invalid && luxuryForm.get('name')?.touched" class="text-red-500 text-sm mt-1">
+          Product name is required
+        </div>
+      </div>
+
+      <!-- Short Description -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Short Description</label>
+        <input formControlName="shortDescription" type="text" placeholder="Short description" class="form-input w-full" />
+      </div>
+
+      <!-- Category -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+        <input formControlName="category" value="Luxury" class="form-input w-full bg-gray-100" readonly />
+      </div>
+    </div>
+
+    <!-- Luxury Specific Fields -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Designer -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Designer/Brand*</label>
+        <input formControlName="designer" placeholder="Designer/Brand" class="form-input w-full" />
+        <div *ngIf="luxuryForm.get('designer')?.invalid && luxuryForm.get('designer')?.touched" class="text-red-500 text-sm mt-1">
+          Designer is required
+        </div>
+      </div>
+
+      <!-- Collection Year -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Collection Year</label>
+        <input formControlName="collectionYear" type="number" placeholder="Collection Year" class="form-input w-full" />
+      </div>
+
+      <!-- Authenticity Code -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Authenticity Code</label>
+        <input formControlName="authenticityCode" placeholder="Authenticity Code" class="form-input w-full" />
+      </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 col-span-3">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Original Price*</label>
+          <input formControlName="originalPrice" type="number" min="0" placeholder="Original Price"
+            class="form-input w-full" />
+          <div *ngIf="luxuryForm.get('originalPrice')?.invalid && luxuryForm.get('originalPrice')?.touched" 
+               class="text-red-500 text-sm mt-1">
+            Valid original price is required
+          </div>
+        </div>
+        <div class="relative">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Sale Percentage</label>
+          <div class="relative">
+            <input formControlName="salePercentage" type="number" min="0" max="100" placeholder="Sale Percentage"
+              class="form-input w-full pr-8" />
+            <span class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">%</span>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Sale Price</label>
+          <input formControlName="salePrice" type="number" placeholder="Sale Price"
+            class="form-input w-full bg-gray-100" readonly />
+        </div>
+      </div>
+    </div>
+
+    <!-- Stock and Material -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Stock Quantity -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Stock Quantity*</label>
+        <input type="number" formControlName="stockQuantity" placeholder="Stock Quantity" class="form-input w-full" />
+        <div *ngIf="luxuryForm.get('stockQuantity')?.invalid" class="text-red-500 text-sm mt-1">
+          Valid quantity required
+        </div>
+      </div>
+
+      <!-- Material -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Material*</label>
+        <input formControlName="material" placeholder="Material" class="form-input w-full" />
+        <div *ngIf="luxuryForm.get('material')?.invalid && luxuryForm.get('material')?.touched" class="text-red-500 text-sm mt-1">
+          Material is required
+        </div>
+      </div>
+
+      <!-- Shipping Info -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Shipping Info</label>
+        <input formControlName="shippingInfo" placeholder="Shipping Info" class="form-input w-full" />
+      </div>
+    </div>
+
+    <!-- Additional Info -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Country of Origin</label>
+        <input formControlName="originCountry" placeholder="Country of Origin" class="form-input w-full" />
+      </div>
+      
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Craftsmanship Details</label>
+        <textarea formControlName="craftsmanshipDetails" placeholder="Craftsmanship Details" rows="3" class="form-textarea w-full"></textarea>
+      </div>
+      
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Additional Notes</label>
+        <textarea formControlName="note" placeholder="Additional Notes" rows="3" class="form-textarea w-full"></textarea>
+      </div>
+    </div>
+
+    <!-- Luxury Status -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <label class="flex items-center space-x-2">
+        <input type="checkbox" id="isLimitedEdition" formControlName="isLimitedEdition" class="form-checkbox" />
+        <span class="text-sm font-medium text-gray-700">Limited Edition</span>
+      </label>
+      <label class="flex items-center space-x-2">
+        <input type="checkbox" id="isNew" formControlName="isNew" class="form-checkbox" />
+        <span class="text-sm font-medium text-gray-700">New Arrival</span>
+      </label>
+      <label class="flex items-center space-x-2">
+        <input type="checkbox" id="isExclusive" formControlName="isExclusive" class="form-checkbox" />
+        <span class="text-sm font-medium text-gray-700">Exclusive</span>
+      </label>
+      <label class="flex items-center space-x-2">
+        <input type="checkbox" id="hasCertificate" formControlName="hasCertificate" class="form-checkbox" />
+        <span class="text-sm font-medium text-gray-700">Includes Certificate</span>
+      </label>
+    </div>
+
+    <!-- Sizes Available -->
+    <div>
+      <label class="block font-semibold mb-1">Sizes Available*</label>
+      <div *ngIf="sizesAvailable.length === 0 && luxuryForm.get('sizesAvailable')?.touched" 
+           class="text-red-500 text-sm mb-2">
+        At least one size is required
+      </div>
+      <div class="flex gap-2 mb-2">
+        <input #sizeInput type="text" placeholder="Add size" class="form-input" />
+        <button type="button" (click)="addSize(sizeInput.value); sizeInput.value=''"
+          class="px-4 py-2 bg-primary/80 text-white rounded hover:bg-primary">Add</button>
+      </div>
+      <div class="flex gap-2 flex-wrap">
+        <span *ngFor="let size of sizesAvailable.controls; let i = index" 
+              class="bg-gray-200 text-sm px-3 py-1 rounded flex items-center">
+          {{ size.value }}
+          <button type="button" (click)="removeSize(i)" class="ml-2 text-red-500 hover:text-red-700">
+            ×
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <!-- Color Options -->
+    <div>
+      <label class="block font-semibold mb-1">Color Options*</label>
+      <div *ngIf="colorOptions.length === 0 && luxuryForm.get('colorOptions')?.touched" 
+           class="text-red-500 text-sm mb-2">
+        At least one color is required
+      </div>
+      <div class="flex gap-2 mb-2">
+        <input #colorInput type="text" placeholder="Add color" class="form-input" />
+        <button type="button" (click)="addColor(colorInput.value); colorInput.value=''"
+          class="px-4 py-2 bg-primary/80 text-white rounded hover:bg-primary">Add</button>
+      </div>
+      <div class="flex gap-2 flex-wrap">
+        <span *ngFor="let color of colorOptions.controls; let i = index" 
+              class="bg-gray-200 text-sm px-3 py-1 rounded flex items-center">
+          {{ color.value }}
+          <button type="button" (click)="removeColor(i)" class="ml-2 text-red-500 hover:text-red-700">
+            ×
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <!-- Image Upload -->
+    <div>
+      <label class="block font-semibold mb-1">Upload Images*</label>
+      <div *ngIf="images.length === 0 && luxuryForm.get('images')?.touched" 
+           class="text-red-500 text-sm mb-2">
+        At least one image is required
+      </div>
+      
+      <!-- Image upload input -->
+      <div class="flex items-center gap-4 mb-4">
+        <input type="file" (change)="onFileChange($event)" multiple accept="image/*" 
+               class="form-input w-full max-w-md" />
+        <button type="button" (click)="uploadImages()" 
+                *ngIf="selectedFiles.length > 0"
+                class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-500">
+          Upload {{selectedFiles.length}} Images
+        </button>
+      </div>
+
+      <!-- Upload progress -->
+      <div *ngIf="uploadProgress > 0 && uploadProgress < 100" class="mb-4">
+        <div class="w-full bg-gray-200 rounded-full h-2.5">
+          <div class="bg-blue-600 h-2.5 rounded-full" [style.width.%]="uploadProgress"></div>
+        </div>
+        <p class="text-sm text-gray-600 mt-1">Uploading: {{uploadProgress}}%</p>
+      </div>
+
+      <!-- Uploaded images -->
+      <div *ngIf="images.length > 0" class="mb-4">
+        <h4 class="text-sm font-medium text-gray-700 mb-2">Uploaded Images ({{images.length}}):</h4>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div *ngFor="let img of images.controls; let i = index" 
+               class="relative border rounded overflow-hidden group">
+            <img [src]="img.value.imageUrl" alt="Uploaded image" class="w-full h-32 object-cover" />
+            <div class="p-2 text-xs text-gray-600 truncate">{{ img.value.altText }}</div>
+            <button type="button" (click)="removeImage(i)"
+                    class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+              ×
+            </button>
+            <button type="button" (click)="setPrimaryImage(i)"
+                    class="absolute bottom-1 right-1 bg-blue-500 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">
+              {{ img.value.isPrimary ? 'Primary' : 'Make Primary' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image previews (before upload) -->
+      <div *ngIf="selectedFiles.length > 0" class="mt-4">
+        <h4 class="text-sm font-medium text-gray-700 mb-2">Selected for upload ({{selectedFiles.length}}):</h4>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div *ngFor="let preview of imagePreviews; let i = index" 
+               class="relative border rounded overflow-hidden group">
+            <img [src]="preview" alt="Image preview" class="w-full h-32 object-cover" />
+            <button type="button" (click)="removeSelectedImage(i)"
+                    class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+              ×
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="pt-4">
+      <button type="submit" [disabled]="luxuryForm.invalid || images.length === 0 || isSubmitting"
+        class="w-full py-3 bg-primary/80 text-white font-semibold rounded cursor-pointer hover:bg-primary transition disabled:opacity-50 disabled:cursor-not-allowed">
+        {{ isSubmitting ? 'Processing...' : 'Upload Luxury Product' }}
+      </button>
+    </div>
+  </form>
+</div>

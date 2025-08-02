@@ -18,11 +18,14 @@ import { StitchedSuitFormComponent } from './admin/stitiched-suit-management/sti
 import { StitchedDetailComponent } from './Pages/stitched-detail/stitched-detail.component';
 import { WomenComponent } from './Pages/women/women.component';
 import { CheckoutComponent } from './Common/checkout/checkout.component';
-import { PretSuitFormComponent } from './admin/pret-suit-form/pret-suit-form.component';
-import { LuxurySuitFormComponent } from './admin/luxury-suit-form/luxury-suit-form.component';
+import { PretSuitFormComponent } from './admin/pret-suit-management/pret-suit-form/pret-suit-form.component';
+import { LuxurySuitFormComponent } from './admin/luxury-suit-management/luxury-suit-form/luxury-suit-form.component';
 import { StitichedSuitManagementComponent } from './admin/stitiched-suit-management/stitiched-suit-management.component';
 import { StitchedSuitEditComponent } from './admin/stitiched-suit-management/stitched-suit-edit/stitched-suit-edit.component';
 import { UnstitchedSuitManagementComponent } from './admin/unstitched-suit-management/unstitched-suit-management.component';
+import { PretSuitManagementComponent } from './admin/pret-suit-management/pret-suit-management.component';
+import { LuxurySuitManagementComponent } from './admin/luxury-suit-management/luxury-suit-management.component';
+import { OrderManagementComponent } from './admin/order-management/order-management.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home | HC' },
@@ -61,8 +64,13 @@ export const routes: Routes = [
           { path: 'stitched-suit/add', component: StitchedSuitFormComponent, title: 'Add Stitched Suits | HC' },
           { path: 'stitched-suit/edit/:id', component: StitchedSuitEditComponent, title: 'Edit Stitched Suits | HC'},
           
-          { path: 'pret-suit-management', component: PretSuitFormComponent, title: 'Pret Suits | HC' },
-          { path: 'luxury-suit-management', component: LuxurySuitFormComponent, title: 'Luxury Suits | HC' }
+          { path: 'pret-suit-management', component: PretSuitManagementComponent, title: 'Pret Suits | HC' },
+          { path: 'pret-suit/add', component: PretSuitFormComponent, title: 'Add PRET Suit | HC' },
+          
+          { path: 'luxury-suit-management', component: LuxurySuitManagementComponent, title: 'Luxury Suits | HC' },
+          { path: 'luxury-suit/add', component: LuxurySuitFormComponent, title: 'Add Luxury Suit | HC' },
+          
+          { path: 'order-management', component: OrderManagementComponent, title: 'Manage Orders | HC'},
         ]
       }
     ]

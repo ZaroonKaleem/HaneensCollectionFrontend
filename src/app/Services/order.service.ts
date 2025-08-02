@@ -21,4 +21,8 @@ createOrder(orderData: any): Observable<any> {
   getOrder(orderId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${orderId}`);
   }
+  
+  getAllOrders(): Observable<any>{
+    return this.http.get(`${this.apiUrl}`)
+  }
 }

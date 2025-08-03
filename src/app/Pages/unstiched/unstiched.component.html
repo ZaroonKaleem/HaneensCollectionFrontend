@@ -50,31 +50,34 @@
 </div>
 
   <!-- Product Grid -->
-<!-- Product Grid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-  <ng-container *ngIf="unstitchedSuits.length > 0; else loading">
-    <div *ngFor="let suit of unstitchedSuits" class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition overflow-hidden group">
+  <div class="grid grid-cols-1 cursor-pointer sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+    <div *ngFor="let suit of unstitchedSuits"
+      class="bg-white rounded-xl overflow-hidden group "
+      (click)="viewProductDetails(suit.productId)">
+
       <div class="relative">
-        <img 
-          [src]="getPrimaryImage(suit)" 
-          alt="Product Image" 
-          class="w-full h-60 object-cover group-hover:scale-105 transition-transform" />
-        <span *ngIf="suit.isNew" class="absolute top-3 right-3 bg-black text-white text-xs px-2 py-1 rounded">NEW</span>
+        <img [src]="suit.images?.[0]?.imageUrl || 'assets/no-image.jpg'" [alt]="suit.name"
+          class="w-full h-full object-contain group-hover:scale-102 transition-transform duration-300" />
+
+        <span *ngIf="suit.isNew"
+          class="absolute top-3 left-3 bg-yellow-500 text-black text-xs px-2 py-1 rounded">NEW</span>
+        <span *ngIf="suit.salePercentage > 0"
+          class="absolute top-3 right-3 bg-red-600 text-white text-xs px-2 py-1 rounded">SALE</span>
       </div>
-      <div class="p-5">
-        <h3 class="text-lg font-bold text-gray-900 mb-1">{{ suit.name }}</h3>
-        <p class="text-sm text-gray-500 mb-2">{{ suit.shortDescription || 'Luxurious Fabric' }}</p>
-        <div class="flex justify-between items-center mt-4">
-          <span class="text-lg font-semibold text-red-600"><span class="text-gray-400 line-through">Rs. {{ suit.originalPrice }}</span> Rs. {{ suit.salePrice }}</span>
-          <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">Buy</button>
-        </div>
+
+      <div class="pt-3">
+        <a>
+          <h3 class="text-xl font-bold hover:underline transition-all .3s text-gray-900 mb-1">{{ suit.name }}</h3>
+        </a>
+        <p class="text-sm text-black font-thin mb-1 text-justify line-clamp-1">{{ suit.shortDescription }}</p>
+        <span class="text-md font-semibold text-gray-900">Rs. {{ suit.salePrice }}</span>
+        <!-- <div class="flex justify-between items-center">
+          <button class="bg-primary cursor-pointer text-white px-4 py-2 rounded-md hover:bg-primary-dark transition">
+            Buy
+          </button> -->
+        <!-- </div> -->
       </div>
     </div>
-  </ng-container>
-
-  <ng-template #loading>
-    <p class="col-span-full text-center text-gray-600">Loading products...</p>
-  </ng-template>
-</div>
+  </div>
 
 </section>

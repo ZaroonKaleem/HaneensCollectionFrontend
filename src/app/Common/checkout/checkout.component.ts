@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CartItem, CartService } from '../../Services/cart.service';
+import { CartService } from '../../Services/cart.service';
 import { OrderService } from '../../Services/order.service';
 import { CommonModule } from '@angular/common';
 
@@ -14,12 +14,12 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule
   ],
   templateUrl: './checkout.component.html',
-  styleUrl: './checkout.component.css'
+  styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
   cartItems: any[] = [];
   cartTotal: number = 0;
-  shippingCost: number = 200; // Default shipping cost
+  shippingCost: number = 200;
   checkoutForm: FormGroup;
 
   constructor(
@@ -29,10 +29,11 @@ export class CheckoutComponent implements OnInit {
     private router: Router
   ) {
     this.checkoutForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)]],
-      address: ['', Validators.required]
+      customerName: ['', Validators.required],
+      customerEmail: ['', [Validators.required, Validators.email]],
+      customerPhone: ['', [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)]],
+      shippingAddress: ['', Validators.required],
+      paymentMethod: ['CashOnDelivery', Validators.required]
     });
   }
 
@@ -48,36 +49,51 @@ export class CheckoutComponent implements OnInit {
   }
 
   calculateShipping(): void {
-    // You can implement your shipping logic here
-    // For example: Free shipping for orders over Rs. 2000
     this.shippingCost = this.cartTotal > 2000 ? 0 : 200;
   }
 
- placeOrder() {
-  const orderData = {
-    CustomerName: this.checkoutForm.value.name,
-    CustomerEmail: this.checkoutForm.value.email,
-    CustomerPhone: this.checkoutForm.value.phone,
-    ShippingAddress: this.checkoutForm.value.address,
-    Items: this.cartItems.map(item => ({
-      ProductId: item.productId,
-      ProductName: item.name,
-      Price: item.price,
-      Quantity: item.quantity,
-      ImageUrl: item.imageUrl || 'assets/placeholder.jpg'
-    })),
-    Subtotal: this.cartTotal,
-    ShippingCost: this.shippingCost,
-    Total: this.cartTotal + this.shippingCost
-  };
-
-  this.orderService.createOrder(orderData).subscribe({
-    next: (response) => {
-      // Handle success
-    },
-    error: (err) => {
-      console.error('Order failed:', err);
+  placeOrder() {
+    if (this.checkoutForm.invalid) {
+      this.markFormGroupTouched(this.checkoutForm);
+      return;
     }
-  });
-}
+
+    const orderData = {
+      customerName: this.checkoutForm.value.customerName,
+      customerEmail: this.checkoutForm.value.customerEmail,
+      customerPhone: this.checkoutForm.value.customerPhone,
+      shippingAddress: this.checkoutForm.value.shippingAddress,
+      paymentMethod: this.checkoutForm.value.paymentMethod,
+      items: this.cartItems.map(item => ({
+        productId: item.productId || 'default-id',
+        productName: item.name || 'Unnamed Product',
+        price: item.price || 0,
+        quantity: item.quantity || 1,
+        imageUrl: item.imageUrl || 'assets/placeholder.jpg'
+      })),
+      subtotal: this.cartTotal,
+      shippingCost: this.shippingCost,
+      total: this.cartTotal + this.shippingCost
+    };
+
+    this.orderService.createOrder(orderData).subscribe({
+      next: (response) => {
+        this.cartService.clearCart();
+        this.router.navigate(['/order-confirmation', response.id]);
+      },
+      error: (err) => {
+        console.error('Order failed:', err);
+      }
+    });
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
 }

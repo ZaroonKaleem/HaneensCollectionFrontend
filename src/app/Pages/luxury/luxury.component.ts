@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductFiltersComponent } from '../products/product-filters/product-filters.component';
 import { LuxuryService } from '../../Services/luxury.service';
+import { Router } from '@angular/router';
 
 // DTO Interfaces included directly in the component file
 interface ProductImageDto {
@@ -20,7 +21,7 @@ interface LuxuryDto {
   shortDescription?: string;
   originalPrice: number;
   salePrice?: number;
-  salePercentage?: number;
+  salePercentage: number;
   sizesAvailable?: string[];
   stockQuantity: number;
   averageRating?: number;
@@ -58,7 +59,10 @@ export class LuxuryComponent implements OnInit {
   totalProducts = 0;
   sortOption = 'best-selling';
 
-  constructor(private luxuryService: LuxuryService) {}
+  constructor(
+    private luxuryService: LuxuryService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.loadProducts();
@@ -92,67 +96,9 @@ export class LuxuryComponent implements OnInit {
     // }, 1000);
   }
 
-  private getMockLuxuryProducts(): LuxuryDto[] {
-    return [
-      {
-        productId: 'lux1',
-        name: 'Designer Silk Gown',
-        category: 'Luxury',
-        shortDescription: 'Handcrafted silk evening gown',
-        originalPrice: 24999,
-        sizesAvailable: ['XS', 'S', 'M'],
-        stockQuantity: 5,
-        averageRating: 4.9,
-        ratingCount: 36,
-        colorOptions: ['Gold', 'Black'],
-        material: 'Pure Silk',
-        isNew: true,
-        isExclusive: true,
-        isLimitedEdition: true,
-        designer: 'Elie Saab',
-        collectionYear: 2023,
-        authenticityCode: 'ES2023-001',
-        images: [
-          {
-            imageId: 'lux-img1',
-            imageUrl: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b',
-            altText: 'Designer Silk Gown',
-            isPrimary: true
-          }
-        ],
-        note: 'Dry clean only. Includes certificate of authenticity.'
-      },
-      {
-        productId: 'lux2',
-        name: 'Cashmere Overcoat',
-        category: 'Luxury',
-        shortDescription: 'Italian cashmere winter coat',
-        originalPrice: 18999,
-        salePrice: 15999,
-        salePercentage: 16,
-        sizesAvailable: ['S', 'M', 'L', 'XL'],
-        stockQuantity: 7,
-        averageRating: 4.7,
-        ratingCount: 28,
-        colorOptions: ['Camel', 'Charcoal'],
-        material: '100% Cashmere',
-        isNew: false,
-        isExclusive: false,
-        isLimitedEdition: false,
-        designer: 'Loro Piana',
-        collectionYear: 2022,
-        shippingInfo: 'Express shipping available',
-        images: [
-          {
-            imageId: 'lux-img2',
-            imageUrl: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea',
-            altText: 'Cashmere Overcoat',
-            isPrimary: true
-          }
-        ]
-      }
-    ];
-  }
+      viewProductDetails(productId: string) {
+  this.router.navigate(['/luxury', productId]);
+}
 
   applyFilters(filters: any) {
     if (!filters || Object.keys(filters).length === 0) {

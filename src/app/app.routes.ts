@@ -26,21 +26,32 @@ import { UnstitchedSuitManagementComponent } from './admin/unstitched-suit-manag
 import { PretSuitManagementComponent } from './admin/pret-suit-management/pret-suit-management.component';
 import { LuxurySuitManagementComponent } from './admin/luxury-suit-management/luxury-suit-management.component';
 import { OrderManagementComponent } from './admin/order-management/order-management.component';
+import { UnstitchedDetailComponent } from './Pages/unstitched-detail/unstitched-detail.component';
+import { PretDetailComponent } from './Pages/pret-detail/pret-detail.component';
+import { LuxuryDetailComponent } from './Pages/luxury-detail/luxury-detail.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home | HC' },
   {
-    path: 'product/:id',  // Dynamic route parameter for product ID
+    path: 'product/:id',
     component: ProductDetailsComponent,
     title: 'Product Details'
   },
   { path: 'women', component: WomenComponent, title: 'Women | HC' },
+
   { path: 'pret', component: PretComponent, title: 'Pret | HC' },
+  { path: 'pret/:id', component: PretDetailComponent, title: 'Details | HC' },
+  
   { path: 'unstitched', component: UnstichedComponent, title: 'unstitched | HC' },
+  { path: 'unstitched/:id', component: UnstitchedDetailComponent, title: 'Details | HC' },
+  
   { path: 'stitched', component: StitchedComponent, title: 'Stiched | HC' },
-  { path: 'luxury', component: LuxuryComponent, title: 'Luxury | HC' },
-  { path: 'Sale', component: SaleComponent, title: 'Sale | HC' },
   { path: 'stitched/:id', component: StitchedDetailComponent, title: 'Details | HC' },
+  
+  { path: 'luxury', component: LuxuryComponent, title: 'Luxury | HC' },
+  { path: 'luxury/:id', component: LuxuryDetailComponent, title: 'Details | HC' },
+  
+  { path: 'Sale', component: SaleComponent, title: 'Sale | HC' },
   { path: 'checkout', component: CheckoutComponent, title: 'Checkout | HC'},
 
  {

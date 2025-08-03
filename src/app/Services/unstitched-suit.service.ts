@@ -18,6 +18,10 @@ constructor(private http: HttpClient) {}
   getAllUnstitchedSuits(): Observable<any[]> {
   return this.http.get<any[]>(this.apiUrl);
   }
+
+  getUnstitchedSuitById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
   
   updateUnstitchedSuit(id: string, data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, data);

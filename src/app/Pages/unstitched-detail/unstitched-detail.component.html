@@ -75,42 +75,42 @@
 </li>
 
 <!-- For Dupatta Details -->
-<li *ngIf="product?.dupatta?.digitalPrint">
+<!-- <li *ngIf="product?.dupatta?.digitalPrint">
   <strong>Dupatta Digital Print:</strong> {{ product.dupatta.digitalPrint }}
 </li>
 <li *ngIf="product?.dupatta?.fabric">
   <strong>Dupatta Fabric:</strong> {{ product.dupatta.fabric }}
-</li>
+</li> -->
 
 <!-- For Trouser Details -->
-<li *ngIf="product?.trouser?.description">
+<!-- <li *ngIf="product?.trouser?.description">
   <strong>Trouser Description:</strong> {{ product.trouser.description }}
 </li>
 <li *ngIf="product?.trouser?.fabric">
   <strong>Trouser Fabric:</strong> {{ product.trouser.fabric }}
-</li>
+</li> -->
           </ul>
         </div>
 
         <!-- Dupatta Details -->
-        <!-- <div class="mb-6" *ngIf="product?.dupatta">
+        <div class="mb-6" *ngIf="product?.dupatta">
           <h3 class="text-xl font-medium text-gray-800 mb-2">Dupatta</h3>
           <ul class="list-unstyled pl-6 text-gray-600">
             <li><strong>Fabric:</strong> {{ product?.dupatta?.fabric }}</li>
             <li><strong>Color:</strong> {{ product?.dupatta?.color }}</li>
             <li><strong>Digital Print:</strong> {{ product?.dupatta?.digitalPrint }}</li>
           </ul>
-        </div> -->
+        </div>
 
         <!-- Trouser Details -->
-        <!-- <div *ngIf="product?.trouser">
+        <div *ngIf="product?.trouser">
           <h3 class="text-xl font-medium text-gray-800 mb-2">Trouser</h3>
           <ul class="list-unstyled pl-6 text-gray-600">
             <li><strong>Fabric:</strong> {{ product?.trouser?.fabric }}</li>
             <li><strong>Color:</strong> {{ product?.trouser?.color }}</li>
             <li><strong>Description:</strong> {{ product?.trouser?.description }}</li>
           </ul>
-        </div> -->
+        </div>
 
         <!-- Additional Info -->
         <div *ngIf="product?.note" class="mt-6">

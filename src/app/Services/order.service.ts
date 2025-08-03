@@ -1,6 +1,6 @@
 // services/order.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Observable } from 'rxjs';
 
@@ -25,4 +25,16 @@ createOrder(orderData: any): Observable<any> {
   getAllOrders(): Observable<any>{
     return this.http.get(`${this.apiUrl}`)
   }
+
+updateOrderStatus(orderId: number, newStatus: string): Observable<any> {
+  return this.http.patch(
+    `${this.apiUrl}/${orderId}/status`,
+    `"${newStatus}"`, // Note the quotes for raw string
+    {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+  );
+}
 }

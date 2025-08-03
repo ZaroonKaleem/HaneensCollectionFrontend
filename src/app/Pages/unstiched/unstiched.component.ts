@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ProductFiltersComponent } from '../products/product-filters/product-filters.component';
 import { UnstitchedSuitService } from '../../Services/unstitched-suit.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-unstiched',
@@ -16,13 +17,20 @@ import { UnstitchedSuitService } from '../../Services/unstitched-suit.service';
 export class UnstichedComponent implements OnInit {
     unstitchedSuits: any[] = [];
 
- constructor(private unstitchedSuitService: UnstitchedSuitService) {}
+  constructor(
+    private unstitchedSuitService: UnstitchedSuitService,
+    private router: Router
+  ) { }
 
   getPrimaryImage(suit: any): string {
   const primary = suit.images?.find((img: any) => img.isPrimary);
   return primary?.imageUrl || 'https://via.placeholder.com/300x400?text=No+Image';
 }
 
+    viewProductDetails(productId: string) {
+  this.router.navigate(['/unstitched', productId]);
+}
+  
   ngOnInit() {
     this.unstitchedSuitService.getAllUnstitchedSuits().subscribe({
       next: (res: any[]) => {

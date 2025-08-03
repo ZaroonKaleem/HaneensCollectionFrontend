@@ -45,46 +45,70 @@
       
       <form [formGroup]="checkoutForm" (ngSubmit)="placeOrder()">
         <div class="mb-4">
-          <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
-          <input type="text" id="name" formControlName="name"
+          <label for="customerName" class="block text-sm font-medium text-gray-700">Full Name</label>
+          <input type="text" id="customerName" formControlName="customerName"
                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-red-500 focus:border-red-500">
+          <div *ngIf="checkoutForm.get('customerName')?.invalid && checkoutForm.get('customerName')?.touched" 
+               class="text-red-500 text-sm mt-1">
+            Name is required
+          </div>
         </div>
 
         <div class="mb-4">
-          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-          <input type="email" id="email" formControlName="email"
+          <label for="customerEmail" class="block text-sm font-medium text-gray-700">Email</label>
+          <input type="email" id="customerEmail" formControlName="customerEmail"
                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-red-500 focus:border-red-500">
+          <div *ngIf="checkoutForm.get('customerEmail')?.invalid && checkoutForm.get('customerEmail')?.touched" 
+               class="text-red-500 text-sm mt-1">
+            Valid email is required
+          </div>
         </div>
 
         <div class="mb-4">
-          <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
-          <input type="tel" id="phone" formControlName="phone"
+          <label for="customerPhone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+          <input type="tel" id="customerPhone" formControlName="customerPhone"
                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-red-500 focus:border-red-500">
+          <div *ngIf="checkoutForm.get('customerPhone')?.invalid && checkoutForm.get('customerPhone')?.touched" 
+               class="text-red-500 text-sm mt-1">
+            Valid phone number (10-15 digits) is required
+          </div>
         </div>
 
         <div class="mb-4">
-          <label for="address" class="block text-sm font-medium text-gray-700">Shipping Address</label>
-          <textarea id="address" formControlName="address" rows="3"
+          <label for="shippingAddress" class="block text-sm font-medium text-gray-700">Shipping Address</label>
+          <textarea id="shippingAddress" formControlName="shippingAddress" rows="3"
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-red-500 focus:border-red-500"></textarea>
+          <div *ngIf="checkoutForm.get('shippingAddress')?.invalid && checkoutForm.get('shippingAddress')?.touched" 
+               class="text-red-500 text-sm mt-1">
+            Shipping address is required
+          </div>
         </div>
 
         <div class="mb-6">
           <label class="block text-sm font-medium text-gray-700">Payment Method</label>
           <div class="mt-2 bg-gray-50 p-4 rounded-md">
             <div class="flex items-center">
-              <input id="cash-on-delivery" type="radio" checked 
+              <input id="cash-on-delivery" type="radio" 
+                     formControlName="paymentMethod" value="CashOnDelivery"
                      class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300">
               <label for="cash-on-delivery" class="ml-2 block text-sm font-medium text-gray-700">
                 Cash on Delivery
               </label>
             </div>
-            <p class="mt-2 text-sm text-gray-500">Pay with cash when your order is delivered.</p>
+            <div class="flex items-center mt-2">
+              <input id="credit-card" type="radio" 
+                     formControlName="paymentMethod" value="CreditCard"
+                     class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300">
+              <label for="credit-card" class="ml-2 block text-sm font-medium text-gray-700">
+                Credit Card
+              </label>
+            </div>
           </div>
         </div>
 
         <button type="submit"
                 class="w-full bg-red-600 border border-transparent rounded-md py-3 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                [disabled]="checkoutForm.invalid">
+                [disabled]="checkoutForm.invalid || cartItems.length === 0">
           Place Order
         </button>
       </form>

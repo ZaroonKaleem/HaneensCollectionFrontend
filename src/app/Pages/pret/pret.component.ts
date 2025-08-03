@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductFiltersComponent } from '../products/product-filters/product-filters.component';
 import { PretService } from '../../Services/pret.service';
+import { Router } from '@angular/router';
 
 
 // DTO Interface included directly in the component file
@@ -21,7 +22,7 @@ interface PretDto {
   shortDescription?: string;
   originalPrice: number;
   salePrice?: number;
-  salePercentage?: number;
+  salePercentage: number;
   sizesAvailable?: string[];
   stockQuantity: number;
   averageRating?: number;
@@ -54,11 +55,17 @@ export class PretComponent implements OnInit {
   totalProducts = 0;
   sortOption = 'best-selling';
 
-  constructor(private pretService: PretService) {}
+  constructor(
+    private pretService: PretService,
+  private router: Router) { }
 
   ngOnInit() {
     this.loadProducts();
   }
+
+    viewProductDetails(productId: string) {
+  this.router.navigate(['/pret', productId]);
+}
 
   loadProducts() {
     this.isLoading = true;

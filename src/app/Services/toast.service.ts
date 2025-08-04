@@ -38,7 +38,7 @@ export class ToastService {
 
     // Add specific styles based on type
     if (type === 'success') {
-      toast.style.backgroundColor = '#4CAF50'; // Green
+      toast.style.backgroundColor = '#8E7BEE'; // Green
     } else {
       toast.style.backgroundColor = '#F44336'; // Red
     }

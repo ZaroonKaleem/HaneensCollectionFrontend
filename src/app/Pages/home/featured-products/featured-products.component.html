@@ -2,22 +2,22 @@
   <div class="max-w-7xl mx-auto">
     <!-- Section Header -->
     <div class="section-header flex flex-col sm:flex-row justify-between items-center mb-12">
-      <h2 class="text-4xl font-bold text-gray-900 tracking-tight">Featured Products</h2>
+      <h2 class="text-4xl font-bold text-gray-900 border-b-2 p-4 tracking-tight">Featured Products</h2>
       <a routerLink="/women"
-         class="mt-4 sm:mt-0 text-red-600 font-semibold hover:text-red-700 transition-colors duration-200">
+         class="mt-4 sm:mt-0 text-primary/80 font-semibold hover:text-primary hover:underline transition-colors duration-200">
         View All Products
       </a>
     </div>
 
     <!-- Loader -->
-    <div *ngIf="isLoading" class="text-center py-8">
+    <!-- <div *ngIf="isLoading" class="text-center py-8">
       <p>Loading products...</p>
-    </div>
+    </div> -->
 
     <!-- Error -->
-    <div *ngIf="error" class="text-center text-red-600 py-8">
+    <!-- <div *ngIf="error" class="text-center text-red-600 py-8">
       {{ error }}
-    </div>
+    </div> -->
 
     <!-- Custom Carousel -->
     <div *ngIf="!isLoading && products.length > 0" class="relative overflow-hidden">

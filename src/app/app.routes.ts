@@ -29,6 +29,8 @@ import { OrderManagementComponent } from './admin/order-management/order-managem
 import { UnstitchedDetailComponent } from './Pages/unstitched-detail/unstitched-detail.component';
 import { PretDetailComponent } from './Pages/pret-detail/pret-detail.component';
 import { LuxuryDetailComponent } from './Pages/luxury-detail/luxury-detail.component';
+import { OrderConfirmationComponent } from './Common/order-confirmation/order-confirmation.component';
+import { AuthGuard } from './Guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home | HC' },
@@ -37,7 +39,7 @@ export const routes: Routes = [
     component: ProductDetailsComponent,
     title: 'Product Details'
   },
-  { path: 'women', component: WomenComponent, title: 'Women | HC' },
+  // { path: 'women', component: WomenComponent, title: 'Women | HC' },
 
   { path: 'pret', component: PretComponent, title: 'Pret | HC' },
   { path: 'pret/:id', component: PretDetailComponent, title: 'Details | HC' },
@@ -52,7 +54,8 @@ export const routes: Routes = [
   { path: 'luxury/:id', component: LuxuryDetailComponent, title: 'Details | HC' },
   
   { path: 'Sale', component: SaleComponent, title: 'Sale | HC' },
-  { path: 'checkout', component: CheckoutComponent, title: 'Checkout | HC'},
+  { path: 'checkout', component: CheckoutComponent, title: 'Checkout | HC' },
+  { path: 'order-confirmation/:id', component: OrderConfirmationComponent, title: 'Order Confirmaiton | HC'},
 
  {
     path: 'administrator',
@@ -61,7 +64,7 @@ export const routes: Routes = [
       {
         path: '',
         component: AdminComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         children: [
           { path: 'dashboard', component: DashboardComponent, title: 'Dashboard | HC' },
           { path: 'hero-editor', component: HeroSectionEditorComponent, title: 'Hero Section Edit | HC' },

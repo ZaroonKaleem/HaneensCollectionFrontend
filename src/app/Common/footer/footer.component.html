@@ -1,84 +1,90 @@
-<!-- <div class="bg-white dark:bg-gray-800 flex justify-center items-center w-screen h-screen"> -->
 <footer class="bg-primary text-gray-300 border-t border-gray-200">
   <div class="container mx-auto px-6 py-8">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-      <!-- Logo & Description -->
-      <div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <!-- Column 1: Logo & Contact Info -->
+      <div class="md:col-span-1">
         <h2 class="text-xl font-semibold flex items-center mb-2 space-x-2">
-            <span><img src="./logo.png" class="h-14" alt=""></span>
-        </h2>
-        <p class="mt-2 text-sm text-white">
-            119-D Fazlia Colony, <br>
-            Ferozepur Road Lahore
-        </p>
-        <p class="mt-2 text-sm text-white">
-          <span class="font-semibold">+92 300 8999 659</span>
-        </p>
-        <!-- Social Icons -->
-        <div class="flex space-x-3 mt-3">
-          <a href="#" class="text-blue-600"><i class="fab fa-facebook"></i></a>
-          <a href="#" class="text-red-600"><i class="fab fa-reddit"></i></a>
-          <a href="#" class="text-green-500"><i class="fab fa-whatsapp"></i></a>
-          <a href="#" class="text-pink-600"><i class="fab fa-pinterest"></i></a>
+          <span><img src="./logo.png" class="h-14" alt=""></span>
+        </h2> <br>
+        <!-- <p class="mt-2 text-sm text-white">
+          119-D Fazlia Colony, <br>
+          Ferozepur Road Lahore
+        </p> -->
+<p class="mt-2 pl-4 text-sm text-white">
+  <span class="font-semibold">
+    <i class="fas fa-phone-alt mr-2"></i> +92 300 8999 659
+  </span>
+</p>
+        <div class="flex pl-4 space-x-4 mt-3">
+          <a class="text-[#1877F2] hover:text-[#166FE5]">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a   class="text-[#E4405F] hover:text-[#D32D4D]">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a   class="text-[#25D366] hover:text-[#1DA851]">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a   class="text-[#FF0000] hover:text-[#CC0000]">
+            <i class="fab fa-youtube"></i>
+          </a>
         </div>
       </div>
-      
-      <!-- My Account -->
+
+      <!-- Column 2: My Account -->
       <div>
-        <h3 class="font-semibold mb-2">My Account</h3>
+        <h3 class="font-semibold text-white mb-3">My Account</h3>
         <ul class="text-sm space-y-2">
-          <li><a href="#" class="hover:text-blue-600">My Account</a></li>
-          <li><a href="#" class="hover:text-blue-600">Order History</a></li>
-          <li><a href="#" class="hover:text-blue-600">Shopping Cart</a></li>
-          <li><a href="#" class="hover:text-blue-600">Wishlist</a></li>
+          <li><a   class="hover:text-blue-400 transition">My Account</a></li>
+          <li><a   class="hover:text-blue-400 transition">Order History</a></li>
+          <li><a   class="hover:text-blue-400 transition">Shopping Cart</a></li>
+          <li><a   class="hover:text-blue-400 transition">Wishlist</a></li>
         </ul>
       </div>
-      
-      <!-- Help Section -->
+
+      <!-- Column 3: Help -->
       <div>
-        <h3 class="font-semibold mb-2">Helps</h3>
+        <h3 class="font-semibold text-white mb-3">Help</h3>
         <ul class="text-sm space-y-2">
-          <li><a href="#" class="hover:text-blue-600">Contact</a></li>
-          <li><a href="#" class="hover:text-blue-600">FAQs</a></li>
-          <li><a href="#" class="hover:text-blue-600">Terms & Condition</a></li>
-          <li><a href="#" class="hover:text-blue-600">Privacy Policy</a></li>
+          <li><a   class="hover:text-blue-400 transition">Contact</a></li>
+          <li><a   class="hover:text-blue-400 transition">FAQs</a></li>
+          <li><a   class="hover:text-blue-400 transition">Terms & Condition</a></li>
+          <li><a   class="hover:text-blue-400 transition">Privacy Policy</a></li>
         </ul>
       </div>
-      
-      <!-- Categories -->
-      <div>
-        <h3 class="font-semibold mb-2">Categories</h3>
+
+      <!-- Column 4: Categories -->
+      <!-- <div>
+        <h3 class="font-semibold text-white mb-3">Categories</h3>
         <ul class="text-sm space-y-2">
-          <li><a href="#" class="hover:text-blue-600">Printers</a></li>
-          <li><a href="#" class="hover:text-blue-600">Cartridge</a></li>
-          <li><a href="#" class="hover:text-blue-600">Ink</a></li>
+          <li><a   class="hover:text-blue-400 transition">Printers</a></li>
+          <li><a   class="hover:text-blue-400 transition">Cartridge</a></li>
+          <li><a   class="hover:text-blue-400 transition">Ink</a></li>
         </ul>
+      </div> -->
+
+      <!-- Column 5: Google Map -->
+      <div class="md:col-span-2">
+        <!-- <h3 class="font-semibold text-white mb-3">Our Location</h3> -->
+        <div class="rounded-sm overflow-hidden border-gray-600 h-38">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3399.123456789012!2d74.12345678901234!3d31.123456789012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391904d1b0907b29%3A0xcb3a5e5a0735a3e5!2s119-D%20Fazlia%20Colony%2C%20Ferozepur%20Road%2C%20Lahore!5e0!3m2!1sen!2s!4v1234567890123!5m2!1sen!2s"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
       </div>
     </div>
-    
-    <!-- Payment and App Download -->
-    <!-- <div class="flex flex-col md:flex-row justify-between items-center mt-6">
-      <div class="flex space-x-2">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-v52tLnvL3FEjfxjPvZWbvUMYvVUtAm9R6A&s" alt="Google Play" class="h-10">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJgk5tpxJC_1CAnsXwo2VvBGyQGI-o5c1PJw&s" alt="App Store" class="h-10">
-      </div>
-      <div class="flex space-x-2 mt-4 md:mt-0">
-        <img src="https://www.logo.wine/a/logo/Apple_Pay/Apple_Pay-White-Dark-Background-Logo.wine.svg" alt="Apple Pay" class="h-[30px] w-10 rounded-md">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSynWEtLag--sQ4XlfTwHh9_DAnfcglW7C3iw&s" alt="Visa" class="h-[30px] w-10 rounded-md">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6mJsEDg1aR_JCFb3ohk2nCxjgSvkWnpmlKg&s" alt="Mastercard" class="h-[30px] w-10 rounded-md">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQveKfGcJ1tSEY8bLg52DxvVrFDJXmxXJgv1Q&s" alt="discover" class="h-[30px] w-10 rounded-md">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDS0zyuJdI4e7E1VGaNDAVtRn3fGTzr0PBOA&s" alt="Secure Payment" class="h-[30px] w-10 rounded-md">
-      </div>
-    </div> -->
-    
-    <!-- Copyright -->
-  <footer class="text-center text-sm text-gray-100 mt-6 border-t pt-4">
-  Haneen's Collection © 2025. All Rights Reserved.
-  <span class="block mt-1 text-white italic text-xs">
-    Developed by <span class="font-medium text-white">Zaroon Kaleem</span>
-  </span>
-</footer>
 
+    <footer class="text-center text-sm text-gray-100 mt-8 border-t border-secondary pt-4">
+      Haneen's Collection © 2025. All Rights Reserved.
+      <span class="block mt-1 text-white italic text-xs">
+        Developed by <span class="font-medium text-white">Zaroon Kaleem</span>
+      </span>
+    </footer>
   </div>
 </footer>
-<!-- </div> -->

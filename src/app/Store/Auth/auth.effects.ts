@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import * as AuthActions from './auth.actions';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
+import { ToastService } from '../../Services/toast.service';
 
 export const login$ = createEffect(
   (actions$ = inject(Actions), http = inject(HttpClient)) => {
@@ -14,7 +15,7 @@ export const login$ = createEffect(
       ofType(AuthActions.login),
       mergeMap(action =>
         http.post<{ token: string }>(
-          `${environment.apiUrl}/Auth/login`,  // Using environment variable
+          `${environment.apiUrl}/Auth/login`,
           { 
             username: action.username, 
             password: action.password 
@@ -22,7 +23,6 @@ export const login$ = createEffect(
         ).pipe(
           map(response => AuthActions.loginSuccess({ token: response.token })),
           catchError(error => {
-            // You can also handle different error messages here
             const errorMessage = error.error?.message || error.message || 'Unknown error';
             return of(AuthActions.loginFailure({ error: errorMessage }));
           })
@@ -33,15 +33,32 @@ export const login$ = createEffect(
   { functional: true }
 );
 
-// In your auth.effects.ts
 export const loginSuccess$ = createEffect(
-  (actions$ = inject(Actions), router = inject(Router)) => {
+  (actions$ = inject(Actions), 
+   router = inject(Router),
+   toastService = inject(ToastService)) => {
     return actions$.pipe(
       ofType(AuthActions.loginSuccess),
-      tap(() => router.navigate(['/administrator/dashboard']))
+      tap(() => {
+        toastService.showSuccess('Login successful!');
+        router.navigate(['/administrator/dashboard']);
+      })
     );
   },
   { functional: true, dispatch: false }
 );
 
-export const AuthEffects = { login$ };
+export const loginFailure$ = createEffect(
+  (actions$ = inject(Actions), toastService = inject(ToastService)) => {
+    return actions$.pipe(
+      ofType(AuthActions.loginFailure),
+      tap((action) => {
+        toastService.showError(action.error || 'Login failed');
+      })
+    );
+  },
+  { functional: true, dispatch: false }
+);
+
+// Make sure to include all effects in the AuthEffects object
+export const AuthEffects = { login$, loginSuccess$, loginFailure$ };

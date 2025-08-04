@@ -1,20 +1,21 @@
+<div class="bg-[#F9FAFB]">
 <!-- Instagram Header -->
-<div class="flex justify-center items-center mb-6">
+<div class="flex justify-center items-center mb-6 bg-[#F9FAFB]">
   <img src="./instagram.png" 
        alt="Instagram Icon" 
        class="h-16 w-16 mr-2"
        width="64" 
        height="64">
-  <span class="text-4xl font-medium text-gray-800">#HaneensCollection</span>
+  <span class="text-4xl font-medium border-b-2 p-4 text-gray-800">#HaneensCollection</span>
 </div>
 
 <!-- Loading State -->
-<div *ngIf="isLoading" class="flex justify-center items-center h-64">
+<div *ngIf="isLoading" class="flex bg-[#F9FAFB] justify-center items-center h-64">
   <span class="loading loading-spinner loading-lg text-orange-500"></span>
 </div>
 
 <!-- Error State -->
-<div *ngIf="error && !isLoading" class="alert alert-error max-w-md mx-auto">
+<div *ngIf="error && !isLoading" class="alert bg-[#F9FAFB] alert-error max-w-md mx-auto">
   <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
   </svg>
@@ -22,7 +23,7 @@
 </div>
 
 <!-- Posts Grid -->
-<div *ngIf="!isLoading && !error" class="flex flex-wrap justify-center gap-4">
+<div *ngIf="!isLoading && !error" class="flex bg-[#F9FAFB] flex-wrap justify-center gap-4">
   <div *ngFor="let post of posts.slice(0, 4); trackBy: trackByPostId" class="relative group">
     <!-- Image Container -->
     <div class="w-[300px] h-[400px] relative overflow-hidden rounded-lg">
@@ -49,6 +50,7 @@
 </div>
 
 <!-- Empty State -->
-<div *ngIf="!isLoading && !error && posts.length === 0" class="text-center py-12">
+<div *ngIf="!isLoading && !error && posts.length === 0" class="text-center bg-[#F9FAFB] py-12">
   <p class="text-gray-500 text-lg">No Instagram posts available</p>
+</div>
 </div>

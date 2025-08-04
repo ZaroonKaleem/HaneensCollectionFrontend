@@ -5,31 +5,36 @@ import * as AuthActions from './auth.actions';
 export interface AuthState {
   token: string | null;
   loading: boolean;
+  isLoggedIn: boolean;
   error: string | null;
 }
 
 export const initialState: AuthState = {
   token: null,
   loading: false,
-  error: null
+  isLoggedIn: false,
+  error: null,
 };
 
 export const authReducer = createReducer(
   initialState,
-  on(AuthActions.login, state => ({
+  on(AuthActions.login, (state) => ({
     ...state,
     loading: true,
-    error: null
+    isLoggedIn: false,
+    error: null,
   })),
   on(AuthActions.loginSuccess, (state, { token }) => ({
     ...state,
     token,
-    loading: false
+    loading: false,
+    isLoggedIn: true,
   })),
   on(AuthActions.loginFailure, (state, { error }) => ({
     ...state,
     error,
-    loading: false
+    loading: false,
+    isLoggedIn: false,
   })),
   on(AuthActions.logout, () => initialState)
 );

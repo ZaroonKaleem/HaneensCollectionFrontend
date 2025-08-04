@@ -51,7 +51,8 @@
       </div>
 
       <!-- Add to Cart Button -->
-      <button class="mt-6 cursor-pointer bg-primary text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition w-full md:w-1/2">
+      <button (click)="addToCart(product); $event.stopPropagation()"
+[attr.data-product-id]="product.productId" class="mt-6 cursor-pointer bg-primary text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition w-full md:w-1/2">
         Add to Cart
       </button>
 

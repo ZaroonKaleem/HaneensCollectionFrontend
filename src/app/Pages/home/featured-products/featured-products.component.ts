@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../../Services/cart.service';
 import { AllSuitsService } from '../../../Services/all-suits.service';
+import { StitchedSuitService } from '../../../Services/stitched-suit.service';
 
 @Component({
   selector: 'app-featured-products',
@@ -51,7 +52,7 @@ prevSlide() {
   error: string | null = null;
 
   constructor(
-    private allSuitsService: AllSuitsService,
+    private stitchedSuitService: StitchedSuitService,
     private cartService: CartService
   ) {}
 
@@ -80,7 +81,7 @@ prevSlide() {
 
   loadFeaturedProducts() {
     this.isLoading = true;
-    this.allSuitsService.getAllSuits().subscribe({
+    this.stitchedSuitService.getAllStitchedSuits().subscribe({
       next: (products) => {
         this.products = products;
         this.isLoading = false;
